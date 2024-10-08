@@ -25,13 +25,14 @@ To use the Kloutit SDK client, you will need to instantiate the KloutitLoginApi 
 ### Sample code Login
 
 ```javascript
-import { KloutitLoginApi, KloutitLoginResponse } from "@kloutit/kloutit-sdk";
-import { Logger } from "@nestjs/common";
+import { KloutitLoginApi, KloutitLoginResponse } from '@kloutit/kloutit-sdk';
+import { Logger } from '@nestjs/common';
+import { AxiosResponse } from 'axios';
 
 // Define your secret values (it should come from an .env or similar)
-const CLIENT_ID = "22311cca-9951-42dd-bc9b-bd0574335b55";
-const CLIENT_SECRET = "6#.n3dcm-x4hc3Y0SrA/UR?DzggfM;";
-const ORGANIZATION_ID = "660055bca25e9c2da9b87944";
+const CLIENT_ID = '22311cca-9951-42dd-bc9b-bd0574335b55';
+const CLIENT_SECRET = '6#.n3dcm-x4hc3Y0SrA/UR?DzggfM;';
+const ORGANIZATION_ID = '660055bca25e9c2da9b87944';
 
 // Create the login api instance
 const kloutitLogin = new KloutitLoginApi();
@@ -42,18 +43,18 @@ let expiresIn: number;
 
 try {
   Logger.log(
-    `Getting Kloutit access token for organization ${this.organizationId}`
+    `Getting Kloutit access token for organization ${ORGANIZATION_ID}`,
   );
   const loginResponse: AxiosResponse<KloutitLoginResponse> =
-    await this.kloutitLogin.login(
-      this.organizationId,
+    await kloutitLogin.login(
+      ORGANIZATION_ID,
       {
-        grant_type: "client_credentials",
+        grant_type: 'client_credentials',
       },
       {
         auth: {
-          username: this.clientId,
-          password: this.clientSecret,
+          username: CLIENT_ID,
+          password: CLIENT_SECRET,
         },
       }
     );
@@ -62,11 +63,11 @@ try {
   expiresIn = loginResponse.data.expiresIn;
   expiresAt = loginResponse.data.expiresAt;
 
-  Logger.log("Access token successfully retrieved!");
+  Logger.log('Access token successfully retrieved!');
 } catch (error) {
   Logger.error(
     `Error trying to login to Kloutit SDK. Status code: ${error.response.data.statusCode}`,
-    error.response.data.message
+    error.response.data.message,
   );
   throw new Error(error.response.data.message);
 }
@@ -79,62 +80,63 @@ Once you have the accessToken with the Login call, you can use it to make other 
 ```javascript
 import {
   KloutitCaseApi,
-  KloutitOrganizationType,
-  KloutitChargebackReason,
+  KloutitCaseBodyOrganizationTypeEnum,
+  KloutitCaseBodyChargebackReasonEnum,
   Currencies,
-} from "@kloutit/kloutit-sdk";
-import { Logger } from "@nestjs/common";
+} from '@kloutit/kloutit-sdk';
+import { Logger } from '@nestjs/common';
+import { AxiosResponse } from 'axios';
 
 // Create the desired api instance
 const kloutitCase = new KloutitCaseApi();
 
 try {
   // Make the call with the requested body
-  Logger.log("Creating case into Kloutit");
-  const caseResponse = await this.kloutitCase.createCase(
+  Logger.log('Creating case into Kloutit');
+  const caseResponse: AxiosResponse<KloutitCaseResponse> = await kloutitCase.createCase(
     {
       organizationId: ORGANIZATION_ID,
-      organizationType: KloutitOrganizationType.TECHNOLOGY,
-      expedientNumber: "EXPNODE0001",
-      notificationDate: new Date("2024-09-22T11:31:22.347Z"),
-      deadline: new Date("2027-09-22T11:31:22.347Z"),
+      organizationType: KloutitCaseBodyOrganizationTypeEnum.TECHNOLOGY,
+      expedientNumber: 'EXPNODE0001',
+      notificationDate: new Date('2024-09-22T11:31:22.347Z'),
+      deadline: new Date('2027-09-22T11:31:22.347Z'),
       disputeAmount: { currency: Currencies.EUR, value: 10 },
-      chargebackReason: KloutitChargebackReason.PRODUCT_SERVICE_NOT_RECEIVED,
-      transactionDate: new Date("2024-09-22T11:31:22.347Z"),
-      panNumber: "PAN000001",
-      transactionId: "TR0000001",
-      bankName: "Sample bank",
+      chargebackReason: KloutitCaseBodyChargebackReasonEnum.PRODUCT_SERVICE_NOT_RECEIVED,
+      transactionDate: new Date('2024-09-22T11:31:22.347Z'),
+      panNumber: 'PAN000001',
+      transactionId: 'TR0000001',
+      bankName: 'Sample bank',
       is3DSPurchase: true,
-      purchaseDate: new Date("2024-09-22T11:31:22.347Z"),
+      purchaseDate: new Date('2024-09-22T11:31:22.347Z'),
       purchaseAmount: { currency: Currencies.EUR, value: 10 },
 
-      product: "Sample product", // Product OR service should be informed
+      product: 'Sample product', // Product OR service should be informed
       service: null, // Product OR service should be informed
       isChargeRefundable: true,
-      shippingCity: "Barcelona",
-      shippingProvince: "Barcelona",
-      shippingPostalCode: "08000",
-      shippingDate: new Date("2024-09-22T11:31:22.347Z"),
-      deliveryCompany: "Sample company",
-      deliveryDate: new Date("2024-09-22T11:31:22.347Z"),
+      shippingCity: 'Barcelona',
+      shippingProvince: 'Barcelona',
+      shippingPostalCode: '08000',
+      shippingDate: new Date('2024-09-22T11:31:22.347Z'),
+      deliveryCompany: 'Sample company',
+      deliveryDate: new Date('2024-09-22T11:31:22.347Z'),
       deliveryConfirmation: true,
 
-      customerName: "Node SDK sample",
-      customerEmail: "kloutit-node@example.com",
-      contactDate: new Date("2024-09-22T11:31:22.347Z"),
-      customerPhone: "612345678",
-      additionalInfo: "Some optional additional info",
+      customerName: 'Node SDK sample',
+      customerEmail: 'kloutit-node@example.com',
+      contactDate: new Date('2024-09-22T11:31:22.347Z'),
+      customerPhone: '612345678',
+      additionalInfo: 'Some optional additional info',
     },
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    }
+    },
   );
 } catch (error) {
   Logger.error(
     `Error trying to create a case into Kloutit. Status code: ${error.response.data.statusCode}`,
-    error.response.data.message
+    error.response.data.message,
   );
   throw new Error(error.response.data.message);
 }
