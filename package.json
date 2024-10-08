@@ -1,0 +1,37 @@
+{
+  "name": "kloutit-sdk",
+  "version": "1.0.0",
+  "description": "Kloutit SDK API for client integrations",
+  "author": {
+    "name": "Kloutit Technologies S.L.",
+    "url": "https://kloutit.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kloutit/kloutit-sdk-node.git"
+  },
+  "keywords": [
+    "kloutit",
+    "chargebacks",
+    "chargeback",
+    "integration",
+    "php",
+    "sdk",
+    "automation",
+    "saas"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "axios": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.5",
+    "typescript": "^4.0"
+  }
+}
