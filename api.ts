@@ -24,6 +24,77 @@ import type { RequestArgs } from './base';
 import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerMap } from './base';
 
 /**
+ * Accepted currencies
+ * @export
+ * @enum {string}
+ */
+
+export const Currencies = {
+    // Europe
+    EUR: 'EUR',
+    GBP: 'GBP',
+    CHF: 'CHF',
+    NOK: 'NOK',
+    DKK: 'DKK',
+    SEK: 'SEK',
+    BGN: 'BGN',
+    HRK: 'HRK',
+    CZK: 'CZK',
+    HUF: 'HUF',
+    PLN: 'PLN',
+    RON: 'RON',
+    ISK: 'ISK',
+    RUB: 'RUB',
+    MKD: 'MKD',
+    RSD: 'RSD',
+    // South America
+    ARS: 'ARS',
+    BOB: 'BOB',
+    BRL: 'BRL',
+    CLP: 'CLP',
+    COP: 'COP',
+    CRC: 'CRC',
+    CUP: 'CUP',
+    DOP: 'DOP',
+    GTQ: 'GTQ',
+    HNL: 'HNL',
+    MXN: 'MXN',
+    NIO: 'NIO',
+    PAB: 'PAB',
+    PYG: 'PYG',
+    PEN: 'PEN',
+    SRD: 'SRD',
+    UYU: 'UYU',
+    VES: 'VES',
+    // North America
+    USD: 'USD',
+    CAD: 'CAD',
+    // Asia
+    CNY: 'CNY',
+    JPY: 'JPY',
+    INR: 'INR',
+    KRW: 'KRW',
+    IDR: 'IDR',
+    MYR: 'MYR',
+    PHP: 'PHP',
+    SGD: 'SGD',
+    THB: 'THB',
+    VND: 'VND',
+    HKD: 'HKD',
+    TWD: 'TWD',
+    TRY: 'TRY',
+    // Oceania
+    AUD: 'AUD',
+    NZD: 'NZD',
+    FJD: 'FJD',
+    PGK: 'PGK',
+    WST: 'WST',
+    VUV: 'VUV'
+} as const;
+
+export type Currencies = typeof Currencies[keyof typeof Currencies];
+
+/**
  * 
  * @export
  * @interface AmountDto
@@ -302,11 +373,11 @@ export interface KloutitCaseBody {
      */
     'disputeAmount': AmountDto;
     /**
-     * Reason why the customer is requesting the chargeback.
-     * @type {string}
+     * 
+     * @type {KloutitChargebackReason}
      * @memberof KloutitCaseBody
      */
-    'chargebackReason': KloutitCaseBodyChargebackReasonEnum;
+    'chargebackReason': KloutitChargebackReason;
     /**
      * Deadline date to resolve this chargeback.
      * @type {string}
@@ -374,11 +445,11 @@ export interface KloutitCaseBody {
      */
     'is3DSPurchase': boolean;
     /**
-     * Sector of the case. It must be one of the sectors of the organization, for instance: EDUCATION, SOFTWARE, TRAVEL_HOTEL,...
-     * @type {string}
+     * 
+     * @type {KloutitOrganizationType}
      * @memberof KloutitCaseBody
      */
-    'organizationType': KloutitCaseBodyOrganizationTypeEnum;
+    'organizationType': KloutitOrganizationType;
     /**
      * Your organization id.
      * @type {string}
@@ -387,36 +458,6 @@ export interface KloutitCaseBody {
     'organizationId': string;
 }
 
-export const KloutitCaseBodyChargebackReasonEnum = {
-    Fraud: 'FRAUD',
-    ProductServiceNotReceived: 'PRODUCT_SERVICE_NOT_RECEIVED',
-    DefectiveProductService: 'DEFECTIVE_PRODUCT_SERVICE',
-    ProductServiceNotAsDescribed: 'PRODUCT_SERVICE_NOT_AS_DESCRIBED',
-    IncorrectDuplicatedCharges: 'INCORRECT_DUPLICATED_CHARGES',
-    ProductServiceCancelled: 'PRODUCT_SERVICE_CANCELLED',
-    RefundNotReceived: 'REFUND_NOT_RECEIVED',
-    RecurrentOperationCancelled: 'RECURRENT_OPERATION_CANCELLED'
-} as const;
-
-export type KloutitCaseBodyChargebackReasonEnum = typeof KloutitCaseBodyChargebackReasonEnum[keyof typeof KloutitCaseBodyChargebackReasonEnum];
-export const KloutitCaseBodyOrganizationTypeEnum = {
-    Education: 'EDUCATION',
-    Fashion: 'FASHION',
-    Food: 'FOOD',
-    Gaming: 'GAMING',
-    HealthBeauty: 'HEALTH_BEAUTY',
-    Home: 'HOME',
-    Leisure: 'LEISURE',
-    Phone: 'PHONE',
-    Software: 'SOFTWARE',
-    Sport: 'SPORT',
-    Supply: 'SUPPLY',
-    Technology: 'TECHNOLOGY',
-    TravelAirline: 'TRAVEL_AIRLINE',
-    TravelHotel: 'TRAVEL_HOTEL'
-} as const;
-
-export type KloutitCaseBodyOrganizationTypeEnum = typeof KloutitCaseBodyOrganizationTypeEnum[keyof typeof KloutitCaseBodyOrganizationTypeEnum];
 
 /**
  * 
@@ -719,11 +760,11 @@ export interface KloutitCaseResponse {
      */
     'is3DSPurchase': boolean;
     /**
-     * Sector of the case. It must be one of the sectors of the organization, for instance: EDUCATION, SOFTWARE, TRAVEL_HOTEL,...
-     * @type {string}
+     * 
+     * @type {KloutitOrganizationType}
      * @memberof KloutitCaseResponse
      */
-    'organizationType': KloutitCaseResponseOrganizationTypeEnum;
+    'organizationType': KloutitOrganizationType;
     /**
      * 
      * @type {OrganizationDto}
@@ -738,24 +779,26 @@ export interface KloutitCaseResponse {
     'dispute'?: object;
 }
 
-export const KloutitCaseResponseOrganizationTypeEnum = {
-    Education: 'EDUCATION',
-    Fashion: 'FASHION',
-    Food: 'FOOD',
-    Gaming: 'GAMING',
-    HealthBeauty: 'HEALTH_BEAUTY',
-    Home: 'HOME',
-    Leisure: 'LEISURE',
-    Phone: 'PHONE',
-    Software: 'SOFTWARE',
-    Sport: 'SPORT',
-    Supply: 'SUPPLY',
-    Technology: 'TECHNOLOGY',
-    TravelAirline: 'TRAVEL_AIRLINE',
-    TravelHotel: 'TRAVEL_HOTEL'
+
+/**
+ * Reason why the customer is requesting the chargeback.
+ * @export
+ * @enum {string}
+ */
+
+export const KloutitChargebackReason = {
+    Fraud: 'FRAUD',
+    ProductServiceNotReceived: 'PRODUCT_SERVICE_NOT_RECEIVED',
+    DefectiveProductService: 'DEFECTIVE_PRODUCT_SERVICE',
+    ProductServiceNotAsDescribed: 'PRODUCT_SERVICE_NOT_AS_DESCRIBED',
+    IncorrectDuplicatedCharges: 'INCORRECT_DUPLICATED_CHARGES',
+    ProductServiceCancelled: 'PRODUCT_SERVICE_CANCELLED',
+    RefundNotReceived: 'REFUND_NOT_RECEIVED',
+    RecurrentOperationCancelled: 'RECURRENT_OPERATION_CANCELLED'
 } as const;
 
-export type KloutitCaseResponseOrganizationTypeEnum = typeof KloutitCaseResponseOrganizationTypeEnum[keyof typeof KloutitCaseResponseOrganizationTypeEnum];
+export type KloutitChargebackReason = typeof KloutitChargebackReason[keyof typeof KloutitChargebackReason];
+
 
 /**
  * 
@@ -814,6 +857,32 @@ export interface KloutitLoginResponse {
      */
     'client': KloutitLoginClient;
 }
+/**
+ * Sector of the case. It must be one of the sectors of the organization, for instance: EDUCATION, SOFTWARE, TRAVEL_HOTEL,...
+ * @export
+ * @enum {string}
+ */
+
+export const KloutitOrganizationType = {
+    Education: 'EDUCATION',
+    Fashion: 'FASHION',
+    Food: 'FOOD',
+    Gaming: 'GAMING',
+    HealthBeauty: 'HEALTH_BEAUTY',
+    Home: 'HOME',
+    Leisure: 'LEISURE',
+    Phone: 'PHONE',
+    Software: 'SOFTWARE',
+    Sport: 'SPORT',
+    Supply: 'SUPPLY',
+    Technology: 'TECHNOLOGY',
+    TravelAirline: 'TRAVEL_AIRLINE',
+    TravelHotel: 'TRAVEL_HOTEL'
+} as const;
+
+export type KloutitOrganizationType = typeof KloutitOrganizationType[keyof typeof KloutitOrganizationType];
+
+
 /**
  * 
  * @export
