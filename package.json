@@ -1,5 +1,5 @@
 {
-  "name": "kloutit-sdk",
+  "name": "@kloutit/kloutit-sdk",
   "version": "1.0.1",
   "description": "Kloutit SDK API for client integrations",
   "author": {

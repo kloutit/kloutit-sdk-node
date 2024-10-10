@@ -9,7 +9,7 @@ This SDK allows your organization to integrate with Kloutit, so your cases could
 To install Kloutit SDK you can run the following npm command.
 
 ```
-npm install kloutit-sdk@latest
+npm install @kloutit/kloutit-sdk@latest
 ```
 
 ## Prerequisites
@@ -80,8 +80,8 @@ Once you have the accessToken with the Login call, you can use it to make other 
 ```javascript
 import {
   KloutitCaseApi,
-  KloutitCaseBodyOrganizationTypeEnum,
-  KloutitCaseBodyChargebackReasonEnum,
+  KloutitOrganizationType,
+  KloutitChargebackReason,
   Currencies,
 } from '@kloutit/kloutit-sdk';
 import { Logger } from '@nestjs/common';
@@ -96,18 +96,18 @@ try {
   const caseResponse: AxiosResponse<KloutitCaseResponse> = await kloutitCase.createCase(
     {
       organizationId: ORGANIZATION_ID,
-      organizationType: KloutitCaseBodyOrganizationTypeEnum.TECHNOLOGY,
+      organizationType: KloutitOrganizationType.Technology,
       expedientNumber: 'EXPNODE0001',
-      notificationDate: new Date('2024-09-22T11:31:22.347Z'),
-      deadline: new Date('2027-09-22T11:31:22.347Z'),
+      notificationDate: '2024-09-22T11:31:22.347Z',
+      deadline: '2027-09-22T11:31:22.347Z',
       disputeAmount: { currency: Currencies.EUR, value: 10 },
-      chargebackReason: KloutitCaseBodyChargebackReasonEnum.PRODUCT_SERVICE_NOT_RECEIVED,
-      transactionDate: new Date('2024-09-22T11:31:22.347Z'),
+      chargebackReason: KloutitChargebackReason.ProductServiceNotReceived,
+      transactionDate: '2024-09-22T11:31:22.347Z',
       panNumber: 'PAN000001',
       transactionId: 'TR0000001',
       bankName: 'Sample bank',
       is3DSPurchase: true,
-      purchaseDate: new Date('2024-09-22T11:31:22.347Z'),
+      purchaseDate: '2024-09-22T11:31:22.347Z',
       purchaseAmount: { currency: Currencies.EUR, value: 10 },
 
       product: 'Sample product', // Product OR service should be informed
@@ -116,14 +116,14 @@ try {
       shippingCity: 'Barcelona',
       shippingProvince: 'Barcelona',
       shippingPostalCode: '08000',
-      shippingDate: new Date('2024-09-22T11:31:22.347Z'),
+      shippingDate: '2024-09-22T11:31:22.347Z',
       deliveryCompany: 'Sample company',
-      deliveryDate: new Date('2024-09-22T11:31:22.347Z'),
+      deliveryDate: '2024-09-22T11:31:22.347Z',
       deliveryConfirmation: true,
 
       customerName: 'Node SDK sample',
       customerEmail: 'kloutit-node@example.com',
-      contactDate: new Date('2024-09-22T11:31:22.347Z'),
+      contactDate: '2024-09-22T11:31:22.347Z',
       customerPhone: '612345678',
       additionalInfo: 'Some optional additional info',
     },
