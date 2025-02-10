@@ -2,7 +2,7 @@
 
 Kloutit is an AI-powered B2B SaaS that enables online merchants to effectively and efficiently defend and prevent chargebacks.
 
-This SDK allows your organization to integrate with Kloutit, so your cases could be automatically created into our system to take profit of all the following profits.
+This SDK allows your organization to integrate with Kloutit, so your cases could be automatically updated into our system to take profit of all the following profits.
 
 ## Installation
 
@@ -14,136 +14,55 @@ npm install @kloutit/kloutit-sdk@latest
 
 ## Prerequisites
 
-To be able to use any Kloutit SDK function, your organization must be registered into our system and SDK client keys for the organization must be created. You can register your organization by following a few simple steps from https://app.kloutit.com.
+To be able to use any Kloutit SDK function, your organization must be registered into our system and SDK client key for the organization must be created. You can register your organization by following a few simple steps from https://app.kloutit.com.
 
-Once your organization is successfully registered, you will be able to configure the SDK connection from the menu `My organization > Kloutit SDK`. You will need to create new client credentials.
+Once your organization is successfully registered, you will need to create new client key from the menu `My organization > Developers`.
 
 ## Usage
 
-To use the Kloutit SDK client, you will need to instantiate the KloutitLoginApi to obtain a valid accessToken (expires at 30m, then you can generate a new one). With this accessToken you will be able to instantiate the rest of the available APIs and make your actions.
+To use the Kloutit SDK client, you will need to instantiate the KloutitClientApi using the client key and make your actions.
 
-### Sample code Login
+### Sample update call code
 
-```javascript
-import { KloutitLoginApi, KloutitLoginResponse } from '@kloutit/kloutit-sdk';
-import { Logger } from '@nestjs/common';
-import { AxiosResponse } from 'axios';
-
-// Define your secret values (it should come from an .env or similar)
-const CLIENT_ID = '22311cca-9951-42dd-bc9b-bd0574335b55';
-const CLIENT_SECRET = '6#.n3dcm-x4hc3Y0SrA/UR?DzggfM;';
-const ORGANIZATION_ID = '660055bca25e9c2da9b87944';
-
-// Create the login api instance
-const kloutitLogin = new KloutitLoginApi();
-
-let accessToken: string;
-let expiresAt: number;
-let expiresIn: number;
-
-try {
-  Logger.log(
-    `Getting Kloutit access token for organization ${ORGANIZATION_ID}`,
-  );
-  const loginResponse: AxiosResponse<KloutitLoginResponse> =
-    await kloutitLogin.login(
-      ORGANIZATION_ID,
-      {
-        grant_type: 'client_credentials',
-      },
-      {
-        auth: {
-          username: CLIENT_ID,
-          password: CLIENT_SECRET,
-        },
-      }
-    );
-
-  accessToken = loginResponse.data.accessToken;
-  expiresIn = loginResponse.data.expiresIn;
-  expiresAt = loginResponse.data.expiresAt;
-
-  Logger.log('Access token successfully retrieved!');
-} catch (error) {
-  Logger.error(
-    `Error trying to login to Kloutit SDK. Status code: ${error.response.data.statusCode}`,
-    error.response.data.message,
-  );
-  throw new Error(error.response.data.message);
-}
-```
-
-### Sample code other calls
-
-Once you have the accessToken with the Login call, you can use it to make other calls, for instance, to create a case.
+Once you have the apiKey, you can use it to instantiate the KloutitClientApi and make calls.
 
 ```javascript
 import {
   KloutitCaseApi,
-  KloutitOrganizationType,
-  KloutitChargebackReason,
-  Currencies,
+  CaseSectorEnum
 } from '@kloutit/kloutit-sdk';
-import { Logger } from '@nestjs/common';
-import { AxiosResponse } from 'axios';
 
 // Create the desired api instance
-const kloutitCase = new KloutitCaseApi();
+const kloutitCaseApi = new KloutitCaseApi({ apiKey: 'YOUR_API_KEY' });
 
+// Make the call with the requested body
 try {
-  // Make the call with the requested body
-  Logger.log('Creating case into Kloutit');
-  const caseResponse: AxiosResponse<KloutitCaseResponse> = await kloutitCase.createCase(
+  console.log('Updating existing case');
+  await this.kloutitCaseApi.updateCase(
+    'CASE_EXPEDIENT_NUMBER',
     {
-      organizationId: ORGANIZATION_ID,
-      organizationType: KloutitOrganizationType.Technology,
-      expedientNumber: 'EXPNODE0001',
-      notificationDate: '2024-09-22T11:31:22.347Z',
-      deadline: '2027-09-22T11:31:22.347Z',
-      disputeAmount: { currency: Currencies.EUR, value: 10 },
-      chargebackReason: KloutitChargebackReason.ProductServiceNotReceived,
-      transactionDate: '2024-09-22T11:31:22.347Z',
-      panNumber: 'PAN000001',
-      transactionId: 'TR0000001',
-      bankName: 'Sample bank',
-      is3DSPurchase: true,
-      purchaseDate: '2024-09-22T11:31:22.347Z',
-      purchaseAmount: { currency: Currencies.EUR, value: 10 },
-
-      product: 'Sample product', // Product OR service should be informed
-      service: null, // Product OR service should be informed
-      isChargeRefundable: true,
-      shippingCity: 'Barcelona',
-      shippingProvince: 'Barcelona',
-      shippingPostalCode: '08000',
-      shippingDate: '2024-09-22T11:31:22.347Z',
-      deliveryCompany: 'Sample company',
-      deliveryDate: '2024-09-22T11:31:22.347Z',
-      deliveryConfirmation: true,
-
-      customerName: 'Node SDK sample',
-      customerEmail: 'kloutit-node@example.com',
-      contactDate: '2024-09-22T11:31:22.347Z',
-      customerPhone: '612345678',
-      additionalInfo: 'Some optional additional info',
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
+      sector: CaseSectorEnum.Technology,
+      purchaseDate: '2025-01-01T10:00:00.000Z',
+      isChargeRefundable: false,
+      transactionDate: '2025-01-01T10:00:00.000Z',
+      purchaseAmount: {
+        value: 100,
+        currency: 'EUR',
       },
-    },
+      bankName: 'Sample Bank Name',
+      service: 'Sample Service Name'
+    }
   );
+  console.log('Case updated');
 } catch (error) {
-  Logger.error(
-    `Error trying to create a case into Kloutit. Status code: ${error.response.data.statusCode}`,
-    error.response.data.message,
-  );
-  throw new Error(error.response.data.message);
+  console.error('Error updating case');
+  throw error:
 }
 ```
 
 This example is made for TECHNOLOGY sector. You can find the needed body for each sector here:
 
+- [Digital product](tipologies/DIGITAL_PRODUCT.md)
 - [Education](tipologies/EDUCATION.md)
 - [Fashion](tipologies/FASHION.md)
 - [Food](tipologies/FOOD.md)
@@ -151,11 +70,14 @@ This example is made for TECHNOLOGY sector. You can find the needed body for eac
 - [Health & beauty](tipologies/HEALTH_BEAUTY.md)
 - [Home](tipologies/HOME.md)
 - [Leisure](tipologies/LEISURE.md)
+- [Marketplace](tipologies/MARKETPLACE.md)
 - [Phone](tipologies/PHONE.md)
 - [Software](tipologies/SOFTWARE.md)
 - [Sport](tipologies/SPORT.md)
+- [Subscription](tipologies/SUBSCRIPTION.md)
 - [Supply](tipologies/SUPPLY.md)
 - [Technology](tipologies/TECHNOLOGY.md)
+- [Transport](tipologies/TRANSPORT.md)
 - [Travel Airline](tipologies/TRAVEL_AIRLINE.md)
 - [Travel Hotel](tipologies/TRAVEL_HOTEL.md)
 
