@@ -1,0 +1,25 @@
+# Publish a new release on NPM
+# https://www.npmjs.com/package/@kloutit/kloutit-sdk
+name: Publish release to NPM
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_KLOUTIT_SDK_NODE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+          always-auth: true
+      - run: |
+          npm install
+          npm run build
+      - run: npm publish

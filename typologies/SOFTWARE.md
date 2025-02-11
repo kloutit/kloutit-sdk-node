@@ -8,11 +8,11 @@ import {
   KloutitOrganizationType,
   KloutitChargebackReason,
   Currencies,
-} from "kloutit-sdk";
+} from "@kloutit/kloutit-sdk";
 
 const kloutitCase: UpdateCaseParams = {
   sector: KloutitOrganizationType.SOFTWARE,
-  filialIdentifier: 'B12345678', // If you do not have filials in your organization, leave this field empty
+  filialIdentifier: "B12345678", // If you do not have filials in your organization, leave this field empty
   transactionDate: new Date(),
   bankName: "Sample bank",
   cardBrand: "Sample card brand",
@@ -27,10 +27,10 @@ const kloutitCase: UpdateCaseParams = {
   additionalInfo: "Some optional additional info",
   communications: [
     {
-      sender: 'Sender name',
-      content: 'Communication content',
+      sender: "Sender name",
+      content: "Communication content",
       date: new Date(),
-    }
+    },
   ],
 
   product: "Sample product",
