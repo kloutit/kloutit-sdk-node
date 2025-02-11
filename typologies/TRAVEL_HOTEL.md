@@ -33,6 +33,7 @@ const kloutitCase: UpdateCaseParams = {
     },
   ],
 
+  termsUrl: 'https://kloutit.com/terms-and-conditions',
   service: "Sample service",
   checkinDate: "2024-09-22T11:31:22.347Z",
   checkoutDate: "2024-09-22T11:31:22.347Z",
