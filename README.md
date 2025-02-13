@@ -29,7 +29,8 @@ Once you have the apiKey, you can use it to instantiate the KloutitClientApi and
 ```javascript
 import {
   KloutitCaseApi,
-  CaseSectorEnum
+  CaseSectorEnum,
+  Currencies,
 } from '@kloutit/kloutit-sdk';
 
 // Create the desired api instance
@@ -42,12 +43,12 @@ try {
     'CASE_EXPEDIENT_NUMBER',
     {
       sector: CaseSectorEnum.Technology,
-      purchaseDate: '2025-01-01T10:00:00.000Z',
+      purchaseDate: new Date().toISOString(), // UTC date, e.g: '2025-01-01T10:00:00.000Z' 
       isChargeRefundable: false,
       transactionDate: '2025-01-01T10:00:00.000Z',
       purchaseAmount: {
         value: 100,
-        currency: 'EUR',
+        currency: Currencies.EUR,
       },
       bankName: 'Sample Bank Name',
       service: 'Sample Service Name'

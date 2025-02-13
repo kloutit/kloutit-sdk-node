@@ -24,77 +24,6 @@ import type { RequestArgs } from './base';
 import { BASE_PATH, BaseAPI, operationServerMap } from './base';
 
 /**
- * Accepted currencies
- * @export
- * @enum {string}
- */
-
-export const Currencies = {
-    // Europe
-    EUR: 'EUR',
-    GBP: 'GBP',
-    CHF: 'CHF',
-    NOK: 'NOK',
-    DKK: 'DKK',
-    SEK: 'SEK',
-    BGN: 'BGN',
-    HRK: 'HRK',
-    CZK: 'CZK',
-    HUF: 'HUF',
-    PLN: 'PLN',
-    RON: 'RON',
-    ISK: 'ISK',
-    RUB: 'RUB',
-    MKD: 'MKD',
-    RSD: 'RSD',
-    // South America
-    ARS: 'ARS',
-    BOB: 'BOB',
-    BRL: 'BRL',
-    CLP: 'CLP',
-    COP: 'COP',
-    CRC: 'CRC',
-    CUP: 'CUP',
-    DOP: 'DOP',
-    GTQ: 'GTQ',
-    HNL: 'HNL',
-    MXN: 'MXN',
-    NIO: 'NIO',
-    PAB: 'PAB',
-    PYG: 'PYG',
-    PEN: 'PEN',
-    SRD: 'SRD',
-    UYU: 'UYU',
-    VES: 'VES',
-    // North America
-    USD: 'USD',
-    CAD: 'CAD',
-    // Asia
-    CNY: 'CNY',
-    JPY: 'JPY',
-    INR: 'INR',
-    KRW: 'KRW',
-    IDR: 'IDR',
-    MYR: 'MYR',
-    PHP: 'PHP',
-    SGD: 'SGD',
-    THB: 'THB',
-    VND: 'VND',
-    HKD: 'HKD',
-    TWD: 'TWD',
-    TRY: 'TRY',
-    // Oceania
-    AUD: 'AUD',
-    NZD: 'NZD',
-    FJD: 'FJD',
-    PGK: 'PGK',
-    WST: 'WST',
-    VUV: 'VUV'
-} as const;
-
-export type Currencies = typeof Currencies[keyof typeof Currencies];
-
-/**
  * 
  * @export
  * @interface Amount
@@ -108,11 +37,13 @@ export interface Amount {
     'value': number;
     /**
      * 
-     * @type {string}
+     * @type {Currencies}
      * @memberof Amount
      */
-    'currency': string;
+    'currency': Currencies;
 }
+
+
 /**
  * 
  * @export
@@ -180,7 +111,7 @@ export interface Case {
      */
     'paymentProcessor'?: CasePaymentProcessorEnum;
     /**
-     * Date when the customer made the purchase.
+     * Date when the customer made the purchase in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
@@ -222,7 +153,7 @@ export interface Case {
      */
     'customerPhone'?: string;
     /**
-     * Date when the service was provided or will be provided.
+     * Date when the service was provided or will be provided in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
@@ -234,13 +165,13 @@ export interface Case {
      */
     'serviceWasProvided'?: boolean;
     /**
-     * Check in date.
+     * Check in date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
     'checkinDate'?: string;
     /**
-     * Check out date.
+     * Check out date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
@@ -270,13 +201,13 @@ export interface Case {
      */
     'destinationCountry'?: string;
     /**
-     * Departure date.
+     * Departure date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
     'departureDate'?: string;
     /**
-     * Arrival date.
+     * Arrival date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
@@ -324,13 +255,13 @@ export interface Case {
      */
     'shippingPostalCode'?: string;
     /**
-     * Shipping date.
+     * Shipping date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
     'shippingDate'?: string;
     /**
-     * Delivery date.
+     * Delivery date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
@@ -348,13 +279,13 @@ export interface Case {
      */
     'deliveryConfirmation'?: boolean;
     /**
-     * Start date of the commitment that the customer has with the company.
+     * Start date in UTC and ISO 8601 format of the commitment that the customer has with the company.
      * @type {string}
      * @memberof Case
      */
     'commitmentStartDate'?: string;
     /**
-     * End date of the commitment that the customer has with the company.
+     * End date in UTC and ISO 8601 format of the commitment that the customer has with the company.
      * @type {string}
      * @memberof Case
      */
@@ -378,7 +309,7 @@ export interface Case {
      */
     'expedientNumber': string;
     /**
-     * Chargeback notification date, when the merchant receives the chargeback notification.
+     * Chargeback notification date, when the merchant receives the chargeback notification, in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
@@ -396,13 +327,13 @@ export interface Case {
      */
     'chargebackReason': ChargebackReason;
     /**
-     * Deadline date to resolve this chargeback.
+     * Deadline date to resolve this chargeback in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
     'deadline'?: string;
     /**
-     * Date when the customer contacted to the merchant.
+     * Date when the customer contacted to the merchant in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
@@ -432,7 +363,7 @@ export interface Case {
      */
     'transactionId'?: string;
     /**
-     * Transaction date.
+     * Transaction date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
@@ -468,7 +399,7 @@ export interface Case {
      */
     'sector'?: CaseSectorEnum;
     /**
-     * Date when the customer contacted to the seller.
+     * Date when the customer contacted to the seller in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
      */
@@ -547,11 +478,13 @@ export interface CaseDisputeAmount {
     'value': number;
     /**
      * 
-     * @type {string}
+     * @type {Currencies}
      * @memberof CaseDisputeAmount
      */
-    'currency': string;
+    'currency': Currencies;
 }
+
+
 /**
  * Sector of the case. It must be one of the sectors of the organization, for instance: EDUCATION, SOFTWARE, TRAVEL_HOTEL,...
  * @export
@@ -676,6 +609,73 @@ export interface CommunicationItem {
 /**
  * 
  * @export
+ * @enum {string}
+ */
+
+export const Currencies = {
+    Eur: 'EUR',
+    Gbp: 'GBP',
+    Chf: 'CHF',
+    Nok: 'NOK',
+    Dkk: 'DKK',
+    Sek: 'SEK',
+    Bgn: 'BGN',
+    Hrk: 'HRK',
+    Czk: 'CZK',
+    Huf: 'HUF',
+    Pln: 'PLN',
+    Ron: 'RON',
+    Isk: 'ISK',
+    Rub: 'RUB',
+    Mkd: 'MKD',
+    Rsd: 'RSD',
+    Ars: 'ARS',
+    Bob: 'BOB',
+    Brl: 'BRL',
+    Clp: 'CLP',
+    Cop: 'COP',
+    Crc: 'CRC',
+    Cup: 'CUP',
+    Dop: 'DOP',
+    Gtq: 'GTQ',
+    Hnl: 'HNL',
+    Mxn: 'MXN',
+    Nio: 'NIO',
+    Pab: 'PAB',
+    Pyg: 'PYG',
+    Pen: 'PEN',
+    Srd: 'SRD',
+    Uyu: 'UYU',
+    Ves: 'VES',
+    Usd: 'USD',
+    Cad: 'CAD',
+    Cny: 'CNY',
+    Jpy: 'JPY',
+    Inr: 'INR',
+    Krw: 'KRW',
+    Idr: 'IDR',
+    Myr: 'MYR',
+    Php: 'PHP',
+    Sgd: 'SGD',
+    Thb: 'THB',
+    Vnd: 'VND',
+    Hkd: 'HKD',
+    Twd: 'TWD',
+    Try: 'TRY',
+    Aud: 'AUD',
+    Nzd: 'NZD',
+    Fjd: 'FJD',
+    Pgk: 'PGK',
+    Wst: 'WST',
+    Vuv: 'VUV'
+} as const;
+
+export type Currencies = typeof Currencies[keyof typeof Currencies];
+
+
+/**
+ * 
+ * @export
  * @interface FileItem
  */
 export interface FileItem {
@@ -761,7 +761,7 @@ export interface UpdateCaseParams {
      */
     'filialIdentifier'?: string;
     /**
-     * Date when the customer made the purchase.
+     * Date when the customer made the purchase in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
@@ -803,7 +803,7 @@ export interface UpdateCaseParams {
      */
     'customerPhone'?: string;
     /**
-     * Date when the service was provided or will be provided.
+     * Date when the service was provided or will be provided in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
@@ -815,13 +815,13 @@ export interface UpdateCaseParams {
      */
     'serviceWasProvided'?: boolean;
     /**
-     * Check in date.
+     * Check in date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
     'checkinDate'?: string;
     /**
-     * Check out date.
+     * Check out date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
@@ -851,13 +851,13 @@ export interface UpdateCaseParams {
      */
     'destinationCountry'?: string;
     /**
-     * Departure date.
+     * Departure date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
     'departureDate'?: string;
     /**
-     * Arrival date.
+     * Arrival date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
@@ -905,13 +905,13 @@ export interface UpdateCaseParams {
      */
     'shippingPostalCode'?: string;
     /**
-     * Shipping date.
+     * Shipping date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
     'shippingDate'?: string;
     /**
-     * Delivery date.
+     * Delivery date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
@@ -929,13 +929,13 @@ export interface UpdateCaseParams {
      */
     'deliveryConfirmation'?: boolean;
     /**
-     * Start date of the commitment that the customer has with the company.
+     * Start date in UTC and ISO 8601 format of the commitment that the customer has with the company.
      * @type {string}
      * @memberof UpdateCaseParams
      */
     'commitmentStartDate'?: string;
     /**
-     * End date of the commitment that the customer has with the company.
+     * End date in UTC and ISO 8601 format of the commitment that the customer has with the company.
      * @type {string}
      * @memberof UpdateCaseParams
      */
@@ -953,7 +953,7 @@ export interface UpdateCaseParams {
      */
     'productDescription'?: string;
     /**
-     * Date when the customer contacted to the merchant.
+     * Date when the customer contacted to the merchant in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
@@ -977,7 +977,7 @@ export interface UpdateCaseParams {
      */
     'last4Digits'?: string;
     /**
-     * Transaction date.
+     * Transaction date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
@@ -1013,7 +1013,7 @@ export interface UpdateCaseParams {
      */
     'sector'?: CaseSector;
     /**
-     * Date when the customer contacted to the seller.
+     * Date when the customer contacted to the seller in UTC and ISO 8601 format.
      * @type {string}
      * @memberof UpdateCaseParams
      */
