@@ -162,6 +162,12 @@ export interface Case {
      */
     'status': CaseStatus;
     /**
+     * Url of the terms and conditions applied to this case.
+     * @type {string}
+     * @memberof Case
+     */
+    'termsUrl'?: string;
+    /**
      * Filial identifier related to the case.
      * @type {string}
      * @memberof Case
@@ -505,6 +511,7 @@ export const CasePaymentProcessorEnum = {
 
 export type CasePaymentProcessorEnum = typeof CasePaymentProcessorEnum[keyof typeof CasePaymentProcessorEnum];
 export const CaseSectorEnum = {
+    DigitalProduct: 'DIGITAL_PRODUCT',
     Education: 'EDUCATION',
     Fashion: 'FASHION',
     Food: 'FOOD',
@@ -512,17 +519,16 @@ export const CaseSectorEnum = {
     HealthBeauty: 'HEALTH_BEAUTY',
     Home: 'HOME',
     Leisure: 'LEISURE',
+    Marketplace: 'MARKETPLACE',
     Phone: 'PHONE',
     Software: 'SOFTWARE',
     Sport: 'SPORT',
+    Subscription: 'SUBSCRIPTION',
     Supply: 'SUPPLY',
     Technology: 'TECHNOLOGY',
+    Transport: 'TRANSPORT',
     TravelAirline: 'TRAVEL_AIRLINE',
-    TravelHotel: 'TRAVEL_HOTEL',
-    Marketplace: 'MARKETPLACE',
-    DigitalProduct: 'DIGITAL_PRODUCT',
-    Subscription: 'SUBSCRIPTION',
-    Transport: 'TRANSPORT'
+    TravelHotel: 'TRAVEL_HOTEL'
 } as const;
 
 export type CaseSectorEnum = typeof CaseSectorEnum[keyof typeof CaseSectorEnum];
@@ -553,6 +559,7 @@ export interface CaseDisputeAmount {
  */
 
 export const CaseSector = {
+    DigitalProduct: 'DIGITAL_PRODUCT',
     Education: 'EDUCATION',
     Fashion: 'FASHION',
     Food: 'FOOD',
@@ -560,17 +567,16 @@ export const CaseSector = {
     HealthBeauty: 'HEALTH_BEAUTY',
     Home: 'HOME',
     Leisure: 'LEISURE',
+    Marketplace: 'MARKETPLACE',
     Phone: 'PHONE',
     Software: 'SOFTWARE',
     Sport: 'SPORT',
+    Subscription: 'SUBSCRIPTION',
     Supply: 'SUPPLY',
     Technology: 'TECHNOLOGY',
+    Transport: 'TRANSPORT',
     TravelAirline: 'TRAVEL_AIRLINE',
-    TravelHotel: 'TRAVEL_HOTEL',
-    Marketplace: 'MARKETPLACE',
-    DigitalProduct: 'DIGITAL_PRODUCT',
-    Subscription: 'SUBSCRIPTION',
-    Transport: 'TRANSPORT'
+    TravelHotel: 'TRAVEL_HOTEL'
 } as const;
 
 export type CaseSector = typeof CaseSector[keyof typeof CaseSector];
@@ -617,6 +623,31 @@ export const ChargebackReason = {
 export type ChargebackReason = typeof ChargebackReason[keyof typeof ChargebackReason];
 
 
+/**
+ * 
+ * @export
+ * @interface ClientWebhookEventDto
+ */
+export interface ClientWebhookEventDto {
+    /**
+     * The type of the webhook event
+     * @type {string}
+     * @memberof ClientWebhookEventDto
+     */
+    'eventType': string;
+    /**
+     * The expedient number of the case that the webhook event is related to
+     * @type {string}
+     * @memberof ClientWebhookEventDto
+     */
+    'expedientNumber': string;
+    /**
+     * The details of the case that the webhook event is related to
+     * @type {object}
+     * @memberof ClientWebhookEventDto
+     */
+    'details': object;
+}
 /**
  * 
  * @export
@@ -717,6 +748,12 @@ export interface MissingFieldsDto {
  * @interface UpdateCaseParams
  */
 export interface UpdateCaseParams {
+    /**
+     * Terms and Conditions URL. Only applies for sectors: TRAVEL_AIRLINE, TRAVEL_HOTEL and LEISURE.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'termsUrl'?: string;
     /**
      * Filial identifier related to the case. This should be the NIF, VAT or other unique identifier that is configured for your organization in Kloutit. If you do not have filials in your organization, leave this field empty.
      * @type {string}
@@ -1005,12 +1042,6 @@ export interface UpdateCaseParams {
      * @memberof UpdateCaseParams
      */
     'sellerEmail'?: string;
-    /**
-     * Terms and Conditions URL. Only applies for sectors: TRAVEL_AIRLINE, TRAVEL_HOTEL and LEISURE.
-     * @type {string}
-     * @memberof UpdateCaseParams
-     */
-    'termsUrl'?: string;
 }
 
 
@@ -1294,6 +1325,45 @@ export const KloutitCaseApiAxiosParamCreator = function (configuration?: Configu
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Verifies if the webhook event received has been sent by Kloutit
+         * @summary Verify webhook event
+         * @param {ClientWebhookEventDto} clientWebhookEventDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyEvent: async (clientWebhookEventDto: ClientWebhookEventDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'clientWebhookEventDto' is not null or undefined
+            assertParamExists('verifyEvent', 'clientWebhookEventDto', clientWebhookEventDto)
+            const localVarPath = `/case/verify-event`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication x-api-key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(clientWebhookEventDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1359,6 +1429,19 @@ export const KloutitCaseApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['KloutitCaseApi.uploadFile']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Verifies if the webhook event received has been sent by Kloutit
+         * @summary Verify webhook event
+         * @param {ClientWebhookEventDto} clientWebhookEventDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async verifyEvent(clientWebhookEventDto: ClientWebhookEventDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.verifyEvent(clientWebhookEventDto, options);
+            const localVarOperationServerIndex = 0;
+            const localVarOperationServerBasePath = operationServerMap['KloutitCaseApi.verifyEvent']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -1411,6 +1494,16 @@ export const KloutitCaseApiFactory = function (configuration?: Configuration, ba
          */
         uploadFile(expedientNumber: string, file: File, type: UploadFileTypeEnum, options?: RawAxiosRequestConfig): AxiosPromise<FileItem> {
             return localVarFp.uploadFile(expedientNumber, file, type, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Verifies if the webhook event received has been sent by Kloutit
+         * @summary Verify webhook event
+         * @param {ClientWebhookEventDto} clientWebhookEventDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyEvent(clientWebhookEventDto: ClientWebhookEventDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.verifyEvent(clientWebhookEventDto, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1471,6 +1564,18 @@ export class KloutitCaseApi extends BaseAPI {
      */
     public uploadFile(expedientNumber: string, file: File, type: UploadFileTypeEnum, options?: RawAxiosRequestConfig) {
         return KloutitCaseApiFp(this.configuration).uploadFile(expedientNumber, file, type, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Verifies if the webhook event received has been sent by Kloutit
+     * @summary Verify webhook event
+     * @param {ClientWebhookEventDto} clientWebhookEventDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KloutitCaseApi
+     */
+    public verifyEvent(clientWebhookEventDto: ClientWebhookEventDto, options?: RawAxiosRequestConfig) {
+        return KloutitCaseApiFp(this.configuration).verifyEvent(clientWebhookEventDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
