@@ -42,7 +42,7 @@ try {
     'CASE_EXPEDIENT_NUMBER',
     {
       sector: CaseSectorEnum.Technology,
-      purchaseDate: '2025-01-01T10:00:00.000Z',
+      purchaseDate: new Date().toISOString(), // '2025-01-01T10:00:00.000Z' 
       isChargeRefundable: false,
       transactionDate: '2025-01-01T10:00:00.000Z',
       purchaseAmount: {
