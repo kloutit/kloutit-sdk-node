@@ -431,35 +431,35 @@ export interface Case {
 }
 
 export const CasePaymentProcessorEnum = {
-    Stripe: 'STRIPE',
-    CheckoutCom: 'CHECKOUT_COM',
-    Worldline: 'WORLDLINE',
-    Redsys: 'REDSYS',
-    Paypal: 'PAYPAL',
-    Mangopay: 'MANGOPAY',
-    Adyen: 'ADYEN'
+    STRIPE: 'STRIPE',
+    CHECKOUT_COM: 'CHECKOUT_COM',
+    WORLDLINE: 'WORLDLINE',
+    REDSYS: 'REDSYS',
+    PAYPAL: 'PAYPAL',
+    MANGOPAY: 'MANGOPAY',
+    ADYEN: 'ADYEN'
 } as const;
 
 export type CasePaymentProcessorEnum = typeof CasePaymentProcessorEnum[keyof typeof CasePaymentProcessorEnum];
 export const CaseSectorEnum = {
-    DigitalProduct: 'DIGITAL_PRODUCT',
-    Education: 'EDUCATION',
-    Fashion: 'FASHION',
-    Food: 'FOOD',
-    Gaming: 'GAMING',
-    HealthBeauty: 'HEALTH_BEAUTY',
-    Home: 'HOME',
-    Leisure: 'LEISURE',
-    Marketplace: 'MARKETPLACE',
-    Phone: 'PHONE',
-    Software: 'SOFTWARE',
-    Sport: 'SPORT',
-    Subscription: 'SUBSCRIPTION',
-    Supply: 'SUPPLY',
-    Technology: 'TECHNOLOGY',
-    Transport: 'TRANSPORT',
-    TravelAirline: 'TRAVEL_AIRLINE',
-    TravelHotel: 'TRAVEL_HOTEL'
+    DIGITAL_PRODUCT: 'DIGITAL_PRODUCT',
+    EDUCATION: 'EDUCATION',
+    FASHION: 'FASHION',
+    FOOD: 'FOOD',
+    GAMING: 'GAMING',
+    HEALTH_BEAUTY: 'HEALTH_BEAUTY',
+    HOME: 'HOME',
+    LEISURE: 'LEISURE',
+    MARKETPLACE: 'MARKETPLACE',
+    PHONE: 'PHONE',
+    SOFTWARE: 'SOFTWARE',
+    SPORT: 'SPORT',
+    SUBSCRIPTION: 'SUBSCRIPTION',
+    SUPPLY: 'SUPPLY',
+    TECHNOLOGY: 'TECHNOLOGY',
+    TRANSPORT: 'TRANSPORT',
+    TRAVEL_AIRLINE: 'TRAVEL_AIRLINE',
+    TRAVEL_HOTEL: 'TRAVEL_HOTEL'
 } as const;
 
 export type CaseSectorEnum = typeof CaseSectorEnum[keyof typeof CaseSectorEnum];
@@ -492,24 +492,24 @@ export interface CaseDisputeAmount {
  */
 
 export const CaseSector = {
-    DigitalProduct: 'DIGITAL_PRODUCT',
-    Education: 'EDUCATION',
-    Fashion: 'FASHION',
-    Food: 'FOOD',
-    Gaming: 'GAMING',
-    HealthBeauty: 'HEALTH_BEAUTY',
-    Home: 'HOME',
-    Leisure: 'LEISURE',
-    Marketplace: 'MARKETPLACE',
-    Phone: 'PHONE',
-    Software: 'SOFTWARE',
-    Sport: 'SPORT',
-    Subscription: 'SUBSCRIPTION',
-    Supply: 'SUPPLY',
-    Technology: 'TECHNOLOGY',
-    Transport: 'TRANSPORT',
-    TravelAirline: 'TRAVEL_AIRLINE',
-    TravelHotel: 'TRAVEL_HOTEL'
+    DIGITAL_PRODUCT: 'DIGITAL_PRODUCT',
+    EDUCATION: 'EDUCATION',
+    FASHION: 'FASHION',
+    FOOD: 'FOOD',
+    GAMING: 'GAMING',
+    HEALTH_BEAUTY: 'HEALTH_BEAUTY',
+    HOME: 'HOME',
+    LEISURE: 'LEISURE',
+    MARKETPLACE: 'MARKETPLACE',
+    PHONE: 'PHONE',
+    SOFTWARE: 'SOFTWARE',
+    SPORT: 'SPORT',
+    SUBSCRIPTION: 'SUBSCRIPTION',
+    SUPPLY: 'SUPPLY',
+    TECHNOLOGY: 'TECHNOLOGY',
+    TRANSPORT: 'TRANSPORT',
+    TRAVEL_AIRLINE: 'TRAVEL_AIRLINE',
+    TRAVEL_HOTEL: 'TRAVEL_HOTEL'
 } as const;
 
 export type CaseSector = typeof CaseSector[keyof typeof CaseSector];
@@ -522,15 +522,15 @@ export type CaseSector = typeof CaseSector[keyof typeof CaseSector];
  */
 
 export const CaseStatus = {
-    Pending: 'PENDING',
-    Generating: 'GENERATING',
-    Generated: 'GENERATED',
-    Alleging: 'ALLEGING',
-    Alleged: 'ALLEGED',
-    Won: 'WON',
-    Lost: 'LOST',
-    Accepted: 'ACCEPTED',
-    Expired: 'EXPIRED'
+    PENDING: 'PENDING',
+    GENERATING: 'GENERATING',
+    GENERATED: 'GENERATED',
+    ALLEGING: 'ALLEGING',
+    ALLEGED: 'ALLEGED',
+    WON: 'WON',
+    LOST: 'LOST',
+    ACCEPTED: 'ACCEPTED',
+    EXPIRED: 'EXPIRED'
 } as const;
 
 export type CaseStatus = typeof CaseStatus[keyof typeof CaseStatus];
@@ -543,14 +543,14 @@ export type CaseStatus = typeof CaseStatus[keyof typeof CaseStatus];
  */
 
 export const ChargebackReason = {
-    Fraud: 'FRAUD',
-    ProductServiceNotReceived: 'PRODUCT_SERVICE_NOT_RECEIVED',
-    DefectiveProductService: 'DEFECTIVE_PRODUCT_SERVICE',
-    ProductServiceNotAsDescribed: 'PRODUCT_SERVICE_NOT_AS_DESCRIBED',
-    IncorrectDuplicatedCharges: 'INCORRECT_DUPLICATED_CHARGES',
-    ProductServiceCancelled: 'PRODUCT_SERVICE_CANCELLED',
-    RefundNotReceived: 'REFUND_NOT_RECEIVED',
-    RecurrentOperationCancelled: 'RECURRENT_OPERATION_CANCELLED'
+    FRAUD: 'FRAUD',
+    PRODUCT_SERVICE_NOT_RECEIVED: 'PRODUCT_SERVICE_NOT_RECEIVED',
+    DEFECTIVE_PRODUCT_SERVICE: 'DEFECTIVE_PRODUCT_SERVICE',
+    PRODUCT_SERVICE_NOT_AS_DESCRIBED: 'PRODUCT_SERVICE_NOT_AS_DESCRIBED',
+    INCORRECT_DUPLICATED_CHARGES: 'INCORRECT_DUPLICATED_CHARGES',
+    PRODUCT_SERVICE_CANCELLED: 'PRODUCT_SERVICE_CANCELLED',
+    REFUND_NOT_RECEIVED: 'REFUND_NOT_RECEIVED',
+    RECURRENT_OPERATION_CANCELLED: 'RECURRENT_OPERATION_CANCELLED'
 } as const;
 
 export type ChargebackReason = typeof ChargebackReason[keyof typeof ChargebackReason];
@@ -613,61 +613,61 @@ export interface CommunicationItem {
  */
 
 export const Currencies = {
-    Eur: 'EUR',
-    Gbp: 'GBP',
-    Chf: 'CHF',
-    Nok: 'NOK',
-    Dkk: 'DKK',
-    Sek: 'SEK',
-    Bgn: 'BGN',
-    Hrk: 'HRK',
-    Czk: 'CZK',
-    Huf: 'HUF',
-    Pln: 'PLN',
-    Ron: 'RON',
-    Isk: 'ISK',
-    Rub: 'RUB',
-    Mkd: 'MKD',
-    Rsd: 'RSD',
-    Ars: 'ARS',
-    Bob: 'BOB',
-    Brl: 'BRL',
-    Clp: 'CLP',
-    Cop: 'COP',
-    Crc: 'CRC',
-    Cup: 'CUP',
-    Dop: 'DOP',
-    Gtq: 'GTQ',
-    Hnl: 'HNL',
-    Mxn: 'MXN',
-    Nio: 'NIO',
-    Pab: 'PAB',
-    Pyg: 'PYG',
-    Pen: 'PEN',
-    Srd: 'SRD',
-    Uyu: 'UYU',
-    Ves: 'VES',
-    Usd: 'USD',
-    Cad: 'CAD',
-    Cny: 'CNY',
-    Jpy: 'JPY',
-    Inr: 'INR',
-    Krw: 'KRW',
-    Idr: 'IDR',
-    Myr: 'MYR',
-    Php: 'PHP',
-    Sgd: 'SGD',
-    Thb: 'THB',
-    Vnd: 'VND',
-    Hkd: 'HKD',
-    Twd: 'TWD',
-    Try: 'TRY',
-    Aud: 'AUD',
-    Nzd: 'NZD',
-    Fjd: 'FJD',
-    Pgk: 'PGK',
-    Wst: 'WST',
-    Vuv: 'VUV'
+    EUR: 'EUR',
+    GBP: 'GBP',
+    CHF: 'CHF',
+    NOK: 'NOK',
+    DKK: 'DKK',
+    SEK: 'SEK',
+    BGN: 'BGN',
+    HRK: 'HRK',
+    CZK: 'CZK',
+    HUF: 'HUF',
+    PLN: 'PLN',
+    RON: 'RON',
+    ISK: 'ISK',
+    RUB: 'RUB',
+    MKD: 'MKD',
+    RSD: 'RSD',
+    ARS: 'ARS',
+    BOB: 'BOB',
+    BRL: 'BRL',
+    CLP: 'CLP',
+    COP: 'COP',
+    CRC: 'CRC',
+    CUP: 'CUP',
+    DOP: 'DOP',
+    GTQ: 'GTQ',
+    HNL: 'HNL',
+    MXN: 'MXN',
+    NIO: 'NIO',
+    PAB: 'PAB',
+    PYG: 'PYG',
+    PEN: 'PEN',
+    SRD: 'SRD',
+    UYU: 'UYU',
+    VES: 'VES',
+    USD: 'USD',
+    CAD: 'CAD',
+    CNY: 'CNY',
+    JPY: 'JPY',
+    INR: 'INR',
+    KRW: 'KRW',
+    IDR: 'IDR',
+    MYR: 'MYR',
+    PHP: 'PHP',
+    SGD: 'SGD',
+    THB: 'THB',
+    VND: 'VND',
+    HKD: 'HKD',
+    TWD: 'TWD',
+    TRY: 'TRY',
+    AUD: 'AUD',
+    NZD: 'NZD',
+    FJD: 'FJD',
+    PGK: 'PGK',
+    WST: 'WST',
+    VUV: 'VUV'
 } as const;
 
 export type Currencies = typeof Currencies[keyof typeof Currencies];
@@ -1583,9 +1583,9 @@ export class KloutitCaseApi extends BaseAPI {
  * @export
  */
 export const UploadFileTypeEnum = {
-    Company: 'COMPANY',
-    Customer: 'CUSTOMER',
-    Product: 'PRODUCT'
+    COMPANY: 'COMPANY',
+    CUSTOMER: 'CUSTOMER',
+    PRODUCT: 'PRODUCT'
 } as const;
 export type UploadFileTypeEnum = typeof UploadFileTypeEnum[keyof typeof UploadFileTypeEnum];
 

@@ -42,8 +42,8 @@ try {
   await this.kloutitCaseApi.updateCase(
     'CASE_EXPEDIENT_NUMBER',
     {
-      sector: CaseSectorEnum.Technology,
-      purchaseDate: new Date().toISOString(), // UTC date, e.g: '2025-01-01T10:00:00.000Z' 
+      sector: CaseSectorEnum.TECHNOLOGY,
+      purchaseDate: new Date().toISOString(), // UTC date, e.g: '2025-01-01T10:00:00.000Z'
       isChargeRefundable: false,
       transactionDate: '2025-01-01T10:00:00.000Z',
       purchaseAmount: {
