@@ -93,11 +93,11 @@ export interface Case {
      */
     'status': CaseStatus;
     /**
-     * Url of the terms and conditions applied to this case.
+     * The sales channel code related to the case.
      * @type {string}
      * @memberof Case
      */
-    'termsUrl'?: string;
+    'salesChannelCode'?: string;
     /**
      * Filial identifier related to the case.
      * @type {string}
@@ -189,11 +189,23 @@ export interface Case {
      */
     'rate'?: string;
     /**
+     * Rate applied in return trip.
+     * @type {string}
+     * @memberof Case
+     */
+    'inboundRate'?: string;
+    /**
      * Flag that indicates if the client made the checkin or not.
      * @type {boolean}
      * @memberof Case
      */
     'checkinConfirmation'?: boolean;
+    /**
+     * Departure country.
+     * @type {string}
+     * @memberof Case
+     */
+    'departureCountry'?: string;
     /**
      * Destination country.
      * @type {string}
@@ -212,6 +224,30 @@ export interface Case {
      * @memberof Case
      */
     'arrivalDate'?: string;
+    /**
+     * Departure country of return trip.
+     * @type {string}
+     * @memberof Case
+     */
+    'inboundDepartureCountry'?: string;
+    /**
+     * Destination country of return trip.
+     * @type {string}
+     * @memberof Case
+     */
+    'inboundDestinationCountry'?: string;
+    /**
+     * Departure date of return trip in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof Case
+     */
+    'inboundDepartureDate'?: string;
+    /**
+     * Arrival date of return trip in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof Case
+     */
+    'inboundArrivalDate'?: string;
     /**
      * Departure airport.
      * @type {string}
@@ -236,6 +272,18 @@ export interface Case {
      * @memberof Case
      */
     'arrivalCity'?: string;
+    /**
+     * Departure city of return trip.
+     * @type {string}
+     * @memberof Case
+     */
+    'inboundDepartureCity'?: string;
+    /**
+     * Arrival city of return trip.
+     * @type {string}
+     * @memberof Case
+     */
+    'inboundArrivalCity'?: string;
     /**
      * Shipping city.
      * @type {string}
@@ -703,7 +751,34 @@ export interface FileItem {
      * @memberof FileItem
      */
     'mimetype': string;
+    /**
+     * File category.
+     * @type {string}
+     * @memberof FileItem
+     */
+    'category': FileItemCategoryEnum;
 }
+
+export const FileItemCategoryEnum = {
+    RECEIPT: 'RECEIPT',
+    CUSTOMER_COMMUNICATION: 'CUSTOMER_COMMUNICATION',
+    CUSTOMER_SIGNATURE: 'CUSTOMER_SIGNATURE',
+    PAYMENT_AUTHORIZATION: 'PAYMENT_AUTHORIZATION',
+    CUSTOMER_VISUAL_EVIDENCE: 'CUSTOMER_VISUAL_EVIDENCE',
+    CUSTOMER_UNCATEGORIZED_FILE: 'CUSTOMER_UNCATEGORIZED_FILE',
+    CANCELLATION_POLICY: 'CANCELLATION_POLICY',
+    REFUND_POLICY: 'REFUND_POLICY',
+    REFUND_EVIDENCE: 'REFUND_EVIDENCE',
+    TERMS_AND_CONDITIONS: 'TERMS_AND_CONDITIONS',
+    DUPLICATE_CHARGE_DOCUMENTATION: 'DUPLICATE_CHARGE_DOCUMENTATION',
+    SERVICE_EVIDENCE: 'SERVICE_EVIDENCE',
+    SHIPPING_EVIDENCE: 'SHIPPING_EVIDENCE',
+    COMPANY_VISUAL_EVIDENCE: 'COMPANY_VISUAL_EVIDENCE',
+    COMPANY_UNCATEGORIZED_FILE: 'COMPANY_UNCATEGORIZED_FILE'
+} as const;
+
+export type FileItemCategoryEnum = typeof FileItemCategoryEnum[keyof typeof FileItemCategoryEnum];
+
 /**
  * 
  * @export
@@ -749,11 +824,11 @@ export interface MissingFieldsDto {
  */
 export interface UpdateCaseParams {
     /**
-     * Terms and Conditions URL. Only applies for sectors: TRAVEL_AIRLINE, TRAVEL_HOTEL and LEISURE.
+     * Sales channel code related to the case. This should be the sales channel code that is configured for your organization in Kloutit. If you do not have sales channels in your organization, leave this field empty.
      * @type {string}
      * @memberof UpdateCaseParams
      */
-    'termsUrl'?: string;
+    'salesChannelCode'?: string;
     /**
      * Filial identifier related to the case. This should be the NIF, VAT or other unique identifier that is configured for your organization in Kloutit. If you do not have filials in your organization, leave this field empty.
      * @type {string}
@@ -839,11 +914,23 @@ export interface UpdateCaseParams {
      */
     'rate'?: string;
     /**
+     * Rate applied in return trip.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'inboundRate'?: string;
+    /**
      * Flag that indicates if the client made the checkin or not.
      * @type {boolean}
      * @memberof UpdateCaseParams
      */
     'checkinConfirmation'?: boolean;
+    /**
+     * Departure country.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'departureCountry'?: string;
     /**
      * Destination country.
      * @type {string}
@@ -862,6 +949,30 @@ export interface UpdateCaseParams {
      * @memberof UpdateCaseParams
      */
     'arrivalDate'?: string;
+    /**
+     * Departure country of return trip.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'inboundDepartureCountry'?: string;
+    /**
+     * Destination country of return trip.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'inboundDestinationCountry'?: string;
+    /**
+     * Departure date of return trip in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'inboundDepartureDate'?: string;
+    /**
+     * Arrival date of return trip in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'inboundArrivalDate'?: string;
     /**
      * Departure airport.
      * @type {string}
@@ -886,6 +997,18 @@ export interface UpdateCaseParams {
      * @memberof UpdateCaseParams
      */
     'arrivalCity'?: string;
+    /**
+     * Departure city of return trip.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'inboundDepartureCity'?: string;
+    /**
+     * Arrival city of return trip.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'inboundArrivalCity'?: string;
     /**
      * Shipping city.
      * @type {string}
@@ -1042,6 +1165,12 @@ export interface UpdateCaseParams {
      * @memberof UpdateCaseParams
      */
     'sellerEmail'?: string;
+    /**
+     * Sales channel Terms and Conditions URL. If Sales Channel Code is provided and not exists in organization, this field is required and should be the URL of the terms and conditions of the sales channel.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'salesChannelTermsUrl'?: string;
 }
 
 
@@ -1271,21 +1400,21 @@ export const KloutitCaseApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. This file can be attached as a customer evidence, company evidence or product related file (for marketplace). Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
+         * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
          * @summary Upload file
          * @param {string} expedientNumber 
          * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;PDF&#x60;&#x60;, &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
-         * @param {UploadFileTypeEnum} type Type of file: &#x60;&#x60;customer&#x60;&#x60;, &#x60;&#x60;company&#x60;&#x60; or &#x60;&#x60;product&#x60;&#x60; (product only for marketplace)
+         * @param {UploadFileCategoryEnum} category Category of the file
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadFile: async (expedientNumber: string, file: File, type: UploadFileTypeEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        uploadFile: async (expedientNumber: string, file: File, category: UploadFileCategoryEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'expedientNumber' is not null or undefined
             assertParamExists('uploadFile', 'expedientNumber', expedientNumber)
             // verify required parameter 'file' is not null or undefined
             assertParamExists('uploadFile', 'file', file)
-            // verify required parameter 'type' is not null or undefined
-            assertParamExists('uploadFile', 'type', type)
+            // verify required parameter 'category' is not null or undefined
+            assertParamExists('uploadFile', 'category', category)
             const localVarPath = `/case/{expedientNumber}/upload-file`
                 .replace(`{${"expedientNumber"}}`, encodeURIComponent(String(expedientNumber)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1308,8 +1437,56 @@ export const KloutitCaseApiAxiosParamCreator = function (configuration?: Configu
                 localVarFormParams.append('file', file as any);
             }
     
-            if (type !== undefined) { 
-                localVarFormParams.append('type', type as any);
+            if (category !== undefined) { 
+                localVarFormParams.append('category', category as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Uploads a product file into an existing case. You need to send a request of type ``multipart/form-data``. This file can be attached only for marketplace company. Allowed formats are ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
+         * @summary Upload product photo
+         * @param {string} expedientNumber 
+         * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadProductPhoto: async (expedientNumber: string, file: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'expedientNumber' is not null or undefined
+            assertParamExists('uploadProductPhoto', 'expedientNumber', expedientNumber)
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('uploadProductPhoto', 'file', file)
+            const localVarPath = `/case/{expedientNumber}/upload-product-photo`
+                .replace(`{${"expedientNumber"}}`, encodeURIComponent(String(expedientNumber)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication x-api-key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file as any);
             }
     
     
@@ -1415,18 +1592,32 @@ export const KloutitCaseApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. This file can be attached as a customer evidence, company evidence or product related file (for marketplace). Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
+         * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
          * @summary Upload file
          * @param {string} expedientNumber 
          * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;PDF&#x60;&#x60;, &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
-         * @param {UploadFileTypeEnum} type Type of file: &#x60;&#x60;customer&#x60;&#x60;, &#x60;&#x60;company&#x60;&#x60; or &#x60;&#x60;product&#x60;&#x60; (product only for marketplace)
+         * @param {UploadFileCategoryEnum} category Category of the file
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async uploadFile(expedientNumber: string, file: File, type: UploadFileTypeEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileItem>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadFile(expedientNumber, file, type, options);
+        async uploadFile(expedientNumber: string, file: File, category: UploadFileCategoryEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileItem>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadFile(expedientNumber, file, category, options);
             const localVarOperationServerIndex = 0;
             const localVarOperationServerBasePath = operationServerMap['KloutitCaseApi.uploadFile']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Uploads a product file into an existing case. You need to send a request of type ``multipart/form-data``. This file can be attached only for marketplace company. Allowed formats are ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
+         * @summary Upload product photo
+         * @param {string} expedientNumber 
+         * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadProductPhoto(expedientNumber: string, file: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileItem>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadProductPhoto(expedientNumber, file, options);
+            const localVarOperationServerIndex = 0;
+            const localVarOperationServerBasePath = operationServerMap['KloutitCaseApi.uploadProductPhoto']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1484,16 +1675,27 @@ export const KloutitCaseApiFactory = function (configuration?: Configuration, ba
             return localVarFp.updateCase(expedientNumber, updateCaseParams, options).then((request) => request(axios, basePath));
         },
         /**
-         * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. This file can be attached as a customer evidence, company evidence or product related file (for marketplace). Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
+         * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
          * @summary Upload file
          * @param {string} expedientNumber 
          * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;PDF&#x60;&#x60;, &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
-         * @param {UploadFileTypeEnum} type Type of file: &#x60;&#x60;customer&#x60;&#x60;, &#x60;&#x60;company&#x60;&#x60; or &#x60;&#x60;product&#x60;&#x60; (product only for marketplace)
+         * @param {UploadFileCategoryEnum} category Category of the file
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadFile(expedientNumber: string, file: File, type: UploadFileTypeEnum, options?: RawAxiosRequestConfig): AxiosPromise<FileItem> {
-            return localVarFp.uploadFile(expedientNumber, file, type, options).then((request) => request(axios, basePath));
+        uploadFile(expedientNumber: string, file: File, category: UploadFileCategoryEnum, options?: RawAxiosRequestConfig): AxiosPromise<FileItem> {
+            return localVarFp.uploadFile(expedientNumber, file, category, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Uploads a product file into an existing case. You need to send a request of type ``multipart/form-data``. This file can be attached only for marketplace company. Allowed formats are ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
+         * @summary Upload product photo
+         * @param {string} expedientNumber 
+         * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadProductPhoto(expedientNumber: string, file: File, options?: RawAxiosRequestConfig): AxiosPromise<FileItem> {
+            return localVarFp.uploadProductPhoto(expedientNumber, file, options).then((request) => request(axios, basePath));
         },
         /**
          * Verifies if the webhook event received has been sent by Kloutit
@@ -1553,17 +1755,30 @@ export class KloutitCaseApi extends BaseAPI {
     }
 
     /**
-     * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. This file can be attached as a customer evidence, company evidence or product related file (for marketplace). Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
+     * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
      * @summary Upload file
      * @param {string} expedientNumber 
      * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;PDF&#x60;&#x60;, &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
-     * @param {UploadFileTypeEnum} type Type of file: &#x60;&#x60;customer&#x60;&#x60;, &#x60;&#x60;company&#x60;&#x60; or &#x60;&#x60;product&#x60;&#x60; (product only for marketplace)
+     * @param {UploadFileCategoryEnum} category Category of the file
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof KloutitCaseApi
      */
-    public uploadFile(expedientNumber: string, file: File, type: UploadFileTypeEnum, options?: RawAxiosRequestConfig) {
-        return KloutitCaseApiFp(this.configuration).uploadFile(expedientNumber, file, type, options).then((request) => request(this.axios, this.basePath));
+    public uploadFile(expedientNumber: string, file: File, category: UploadFileCategoryEnum, options?: RawAxiosRequestConfig) {
+        return KloutitCaseApiFp(this.configuration).uploadFile(expedientNumber, file, category, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Uploads a product file into an existing case. You need to send a request of type ``multipart/form-data``. This file can be attached only for marketplace company. Allowed formats are ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
+     * @summary Upload product photo
+     * @param {string} expedientNumber 
+     * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KloutitCaseApi
+     */
+    public uploadProductPhoto(expedientNumber: string, file: File, options?: RawAxiosRequestConfig) {
+        return KloutitCaseApiFp(this.configuration).uploadProductPhoto(expedientNumber, file, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1582,11 +1797,23 @@ export class KloutitCaseApi extends BaseAPI {
 /**
  * @export
  */
-export const UploadFileTypeEnum = {
-    COMPANY: 'COMPANY',
-    CUSTOMER: 'CUSTOMER',
-    PRODUCT: 'PRODUCT'
+export const UploadFileCategoryEnum = {
+    RECEIPT: 'RECEIPT',
+    CUSTOMER_COMMUNICATION: 'CUSTOMER_COMMUNICATION',
+    CUSTOMER_SIGNATURE: 'CUSTOMER_SIGNATURE',
+    PAYMENT_AUTHORIZATION: 'PAYMENT_AUTHORIZATION',
+    CUSTOMER_VISUAL_EVIDENCE: 'CUSTOMER_VISUAL_EVIDENCE',
+    CUSTOMER_UNCATEGORIZED_FILE: 'CUSTOMER_UNCATEGORIZED_FILE',
+    CANCELLATION_POLICY: 'CANCELLATION_POLICY',
+    REFUND_POLICY: 'REFUND_POLICY',
+    REFUND_EVIDENCE: 'REFUND_EVIDENCE',
+    TERMS_AND_CONDITIONS: 'TERMS_AND_CONDITIONS',
+    DUPLICATE_CHARGE_DOCUMENTATION: 'DUPLICATE_CHARGE_DOCUMENTATION',
+    SERVICE_EVIDENCE: 'SERVICE_EVIDENCE',
+    SHIPPING_EVIDENCE: 'SHIPPING_EVIDENCE',
+    COMPANY_VISUAL_EVIDENCE: 'COMPANY_VISUAL_EVIDENCE',
+    COMPANY_UNCATEGORIZED_FILE: 'COMPANY_UNCATEGORIZED_FILE'
 } as const;
-export type UploadFileTypeEnum = typeof UploadFileTypeEnum[keyof typeof UploadFileTypeEnum];
+export type UploadFileCategoryEnum = typeof UploadFileCategoryEnum[keyof typeof UploadFileCategoryEnum];
 
 
