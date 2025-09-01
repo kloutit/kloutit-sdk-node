@@ -376,10 +376,10 @@ export interface Case {
     'notificationDate': string;
     /**
      * 
-     * @type {ClientsCreateCaseRequestDtoDisputeAmount}
+     * @type {CreateCaseParamsDisputeAmount}
      * @memberof Case
      */
-    'disputeAmount': ClientsCreateCaseRequestDtoDisputeAmount;
+    'disputeAmount': CreateCaseParamsDisputeAmount;
     /**
      * 
      * @type {ChargebackReason}
@@ -638,444 +638,6 @@ export interface ClientWebhookEventDto {
 /**
  * 
  * @export
- * @interface ClientsCreateCaseRequestDto
- */
-export interface ClientsCreateCaseRequestDto {
-    /**
-     * Sales channel code related to the case. This should be the sales channel code that is configured for your organization in Kloutit. If you do not have sales channels in your organization, leave this field empty.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'salesChannelCode'?: string;
-    /**
-     * Filial identifier related to the case. This should be the NIF, VAT or other unique identifier that is configured for your organization in Kloutit. If you do not have filials in your organization, leave this field empty.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'filialIdentifier'?: string;
-    /**
-     * Date when the customer made the purchase in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'purchaseDate'?: string;
-    /**
-     * Service that the customer bought.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'service'?: string;
-    /**
-     * Product that the customer bought.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'product'?: string;
-    /**
-     * Flag that indicates if the charge made is refundable regarding your company terms and conditions.
-     * @type {boolean}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'isChargeRefundable'?: boolean;
-    /**
-     * Customer name.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'customerName'?: string;
-    /**
-     * Customer email
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'customerEmail'?: string;
-    /**
-     * Customer phone.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'customerPhone'?: string;
-    /**
-     * Date when the service was provided or will be provided in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'serviceDate'?: string;
-    /**
-     * Flag that indicates if the service was provided or not.
-     * @type {boolean}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'serviceWasProvided'?: boolean;
-    /**
-     * Check in date in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'checkinDate'?: string;
-    /**
-     * Check out date in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'checkoutDate'?: string;
-    /**
-     * Hotel name.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'hotelName'?: string;
-    /**
-     * Rate applied.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'rate'?: string;
-    /**
-     * Rate applied in return trip.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'inboundRate'?: string;
-    /**
-     * Flag that indicates if the client made the checkin or not.
-     * @type {boolean}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'checkinConfirmation'?: boolean;
-    /**
-     * Departure country.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'departureCountry'?: string;
-    /**
-     * Destination country.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'destinationCountry'?: string;
-    /**
-     * Departure date in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'departureDate'?: string;
-    /**
-     * Arrival date in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'arrivalDate'?: string;
-    /**
-     * Departure country of return trip.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'inboundDepartureCountry'?: string;
-    /**
-     * Destination country of return trip.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'inboundDestinationCountry'?: string;
-    /**
-     * Departure date of return trip in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'inboundDepartureDate'?: string;
-    /**
-     * Arrival date of return trip in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'inboundArrivalDate'?: string;
-    /**
-     * Departure airport.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'departureAirport'?: string;
-    /**
-     * Arrival airport.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'arrivalAirport'?: string;
-    /**
-     * Departure airport of return trip.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'inboundDepartureAirport'?: string;
-    /**
-     * Arrival airport of return trip.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'inboundArrivalAirport'?: string;
-    /**
-     * Departure city.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'departureCity'?: string;
-    /**
-     * Arrival city.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'arrivalCity'?: string;
-    /**
-     * Departure city of return trip.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'inboundDepartureCity'?: string;
-    /**
-     * Arrival city of return trip.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'inboundArrivalCity'?: string;
-    /**
-     * Shipping city.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'shippingCity'?: string;
-    /**
-     * Shipping province.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'shippingProvince'?: string;
-    /**
-     * Shipping postal code.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'shippingPostalCode'?: string;
-    /**
-     * Shipping date in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'shippingDate'?: string;
-    /**
-     * Delivery date in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'deliveryDate'?: string;
-    /**
-     * Delivery company.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'deliveryCompany'?: string;
-    /**
-     * Flag that indicates if the customer received the product.
-     * @type {boolean}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'deliveryConfirmation'?: boolean;
-    /**
-     * Start date in UTC and ISO 8601 format of the commitment that the customer has with the company.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'commitmentStartDate'?: string;
-    /**
-     * End date in UTC and ISO 8601 format of the commitment that the customer has with the company.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'commitmentEndDate'?: string;
-    /**
-     * Flag that indicates if the subscription is cancelled or active.
-     * @type {boolean}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'isCancelled'?: boolean;
-    /**
-     * Product description.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'productDescription'?: string;
-    /**
-     * Chargeback expedient number.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'expedientNumber'?: string;
-    /**
-     * Chargeback notification date, when the merchant receives the chargeback notification, in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'notificationDate'?: string;
-    /**
-     * 
-     * @type {ClientsCreateCaseRequestDtoDisputeAmount}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'disputeAmount'?: ClientsCreateCaseRequestDtoDisputeAmount;
-    /**
-     * 
-     * @type {ChargebackReason}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'chargebackReason'?: ChargebackReason;
-    /**
-     * Deadline date to resolve this chargeback in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'deadline'?: string;
-    /**
-     * Order number related to the case.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'orderNumber'?: string;
-    /**
-     * Ticket number related to the case.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'ticketNumber'?: string;
-    /**
-     * Date when the customer contacted to the merchant in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'contactDate'?: string;
-    /**
-     * Array of all the emails that the customer has sent regarding this dispute. The structure of each item contains: **sender**: *customer* or *company*, **date**, **content**: string containing the message
-     * @type {Array<CommunicationItem>}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'communications'?: Array<CommunicationItem>;
-    /**
-     * Additional info related to the chargeback.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'additionalInfo'?: string;
-    /**
-     * Last 4 digits of the customer\'s credit card number.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'last4Digits'?: string;
-    /**
-     * Transaction id.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'transactionId'?: string;
-    /**
-     * Transaction date in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'transactionDate'?: string;
-    /**
-     * Purchase amount.
-     * @type {Amount}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'purchaseAmount'?: Amount;
-    /**
-     * Customer bank name.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'bankName'?: string;
-    /**
-     * Card brand that the customer used to make the payment.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'cardBrand'?: string;
-    /**
-     * Flag that indicates if the purchase has been made with 3DS.
-     * @type {boolean}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'is3DSPurchase'?: boolean;
-    /**
-     * 
-     * @type {CaseSector}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'sector'?: CaseSector;
-    /**
-     * Date when the customer contacted to the seller in UTC and ISO 8601 format.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'sellerContactDate'?: string;
-    /**
-     * Seller additional infromation.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'sellerAdditionalInfo'?: string;
-    /**
-     * Seller name.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'sellerName'?: string;
-    /**
-     * Seller phone number.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'sellerPhone'?: string;
-    /**
-     * Seller email.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'sellerEmail'?: string;
-    /**
-     * Sales channel Terms and Conditions URL. If Sales Channel Code is provided and not exists in organization, this field is required and should be the URL of the terms and conditions of the sales channel.
-     * @type {string}
-     * @memberof ClientsCreateCaseRequestDto
-     */
-    'salesChannelTermsUrl'?: string;
-}
-
-
-/**
- * Amount that the customer claims.
- * @export
- * @interface ClientsCreateCaseRequestDtoDisputeAmount
- */
-export interface ClientsCreateCaseRequestDtoDisputeAmount {
-    /**
-     * 
-     * @type {number}
-     * @memberof ClientsCreateCaseRequestDtoDisputeAmount
-     */
-    'value': number;
-    /**
-     * 
-     * @type {Currencies}
-     * @memberof ClientsCreateCaseRequestDtoDisputeAmount
-     */
-    'currency': Currencies;
-}
-
-
-/**
- * 
- * @export
  * @interface CommunicationItem
  */
 export interface CommunicationItem {
@@ -1098,6 +660,444 @@ export interface CommunicationItem {
      */
     'date': string;
 }
+/**
+ * 
+ * @export
+ * @interface CreateCaseParams
+ */
+export interface CreateCaseParams {
+    /**
+     * Sales channel code related to the case. This should be the sales channel code that is configured for your organization in Kloutit. If you do not have sales channels in your organization, leave this field empty.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'salesChannelCode'?: string;
+    /**
+     * Filial identifier related to the case. This should be the NIF, VAT or other unique identifier that is configured for your organization in Kloutit. If you do not have filials in your organization, leave this field empty.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'filialIdentifier'?: string;
+    /**
+     * Date when the customer made the purchase in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'purchaseDate'?: string;
+    /**
+     * Service that the customer bought.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'service'?: string;
+    /**
+     * Product that the customer bought.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'product'?: string;
+    /**
+     * Flag that indicates if the charge made is refundable regarding your company terms and conditions.
+     * @type {boolean}
+     * @memberof CreateCaseParams
+     */
+    'isChargeRefundable'?: boolean;
+    /**
+     * Customer name.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'customerName'?: string;
+    /**
+     * Customer email
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'customerEmail'?: string;
+    /**
+     * Customer phone.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'customerPhone'?: string;
+    /**
+     * Date when the service was provided or will be provided in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'serviceDate'?: string;
+    /**
+     * Flag that indicates if the service was provided or not.
+     * @type {boolean}
+     * @memberof CreateCaseParams
+     */
+    'serviceWasProvided'?: boolean;
+    /**
+     * Check in date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'checkinDate'?: string;
+    /**
+     * Check out date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'checkoutDate'?: string;
+    /**
+     * Hotel name.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'hotelName'?: string;
+    /**
+     * Rate applied.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'rate'?: string;
+    /**
+     * Rate applied in return trip.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'inboundRate'?: string;
+    /**
+     * Flag that indicates if the client made the checkin or not.
+     * @type {boolean}
+     * @memberof CreateCaseParams
+     */
+    'checkinConfirmation'?: boolean;
+    /**
+     * Departure country.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'departureCountry'?: string;
+    /**
+     * Destination country.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'destinationCountry'?: string;
+    /**
+     * Departure date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'departureDate'?: string;
+    /**
+     * Arrival date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'arrivalDate'?: string;
+    /**
+     * Departure country of return trip.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'inboundDepartureCountry'?: string;
+    /**
+     * Destination country of return trip.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'inboundDestinationCountry'?: string;
+    /**
+     * Departure date of return trip in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'inboundDepartureDate'?: string;
+    /**
+     * Arrival date of return trip in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'inboundArrivalDate'?: string;
+    /**
+     * Departure airport.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'departureAirport'?: string;
+    /**
+     * Arrival airport.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'arrivalAirport'?: string;
+    /**
+     * Departure airport of return trip.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'inboundDepartureAirport'?: string;
+    /**
+     * Arrival airport of return trip.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'inboundArrivalAirport'?: string;
+    /**
+     * Departure city.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'departureCity'?: string;
+    /**
+     * Arrival city.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'arrivalCity'?: string;
+    /**
+     * Departure city of return trip.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'inboundDepartureCity'?: string;
+    /**
+     * Arrival city of return trip.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'inboundArrivalCity'?: string;
+    /**
+     * Shipping city.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'shippingCity'?: string;
+    /**
+     * Shipping province.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'shippingProvince'?: string;
+    /**
+     * Shipping postal code.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'shippingPostalCode'?: string;
+    /**
+     * Shipping date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'shippingDate'?: string;
+    /**
+     * Delivery date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'deliveryDate'?: string;
+    /**
+     * Delivery company.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'deliveryCompany'?: string;
+    /**
+     * Flag that indicates if the customer received the product.
+     * @type {boolean}
+     * @memberof CreateCaseParams
+     */
+    'deliveryConfirmation'?: boolean;
+    /**
+     * Start date in UTC and ISO 8601 format of the commitment that the customer has with the company.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'commitmentStartDate'?: string;
+    /**
+     * End date in UTC and ISO 8601 format of the commitment that the customer has with the company.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'commitmentEndDate'?: string;
+    /**
+     * Flag that indicates if the subscription is cancelled or active.
+     * @type {boolean}
+     * @memberof CreateCaseParams
+     */
+    'isCancelled'?: boolean;
+    /**
+     * Product description.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'productDescription'?: string;
+    /**
+     * Chargeback expedient number.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'expedientNumber'?: string;
+    /**
+     * Chargeback notification date, when the merchant receives the chargeback notification, in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'notificationDate'?: string;
+    /**
+     * 
+     * @type {CreateCaseParamsDisputeAmount}
+     * @memberof CreateCaseParams
+     */
+    'disputeAmount'?: CreateCaseParamsDisputeAmount;
+    /**
+     * 
+     * @type {ChargebackReason}
+     * @memberof CreateCaseParams
+     */
+    'chargebackReason'?: ChargebackReason;
+    /**
+     * Deadline date to resolve this chargeback in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'deadline'?: string;
+    /**
+     * Order number related to the case.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'orderNumber'?: string;
+    /**
+     * Ticket number related to the case.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'ticketNumber'?: string;
+    /**
+     * Date when the customer contacted to the merchant in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'contactDate'?: string;
+    /**
+     * Array of all the emails that the customer has sent regarding this dispute. The structure of each item contains: **sender**: *customer* or *company*, **date**, **content**: string containing the message
+     * @type {Array<CommunicationItem>}
+     * @memberof CreateCaseParams
+     */
+    'communications'?: Array<CommunicationItem>;
+    /**
+     * Additional info related to the chargeback.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'additionalInfo'?: string;
+    /**
+     * Last 4 digits of the customer\'s credit card number.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'last4Digits'?: string;
+    /**
+     * Transaction id.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'transactionId'?: string;
+    /**
+     * Transaction date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'transactionDate'?: string;
+    /**
+     * Purchase amount.
+     * @type {Amount}
+     * @memberof CreateCaseParams
+     */
+    'purchaseAmount'?: Amount;
+    /**
+     * Customer bank name.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'bankName'?: string;
+    /**
+     * Card brand that the customer used to make the payment.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'cardBrand'?: string;
+    /**
+     * Flag that indicates if the purchase has been made with 3DS.
+     * @type {boolean}
+     * @memberof CreateCaseParams
+     */
+    'is3DSPurchase'?: boolean;
+    /**
+     * 
+     * @type {CaseSector}
+     * @memberof CreateCaseParams
+     */
+    'sector'?: CaseSector;
+    /**
+     * Date when the customer contacted to the seller in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'sellerContactDate'?: string;
+    /**
+     * Seller additional infromation.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'sellerAdditionalInfo'?: string;
+    /**
+     * Seller name.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'sellerName'?: string;
+    /**
+     * Seller phone number.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'sellerPhone'?: string;
+    /**
+     * Seller email.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'sellerEmail'?: string;
+    /**
+     * Sales channel Terms and Conditions URL. If Sales Channel Code is provided and not exists in organization, this field is required and should be the URL of the terms and conditions of the sales channel.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'salesChannelTermsUrl'?: string;
+}
+
+
+/**
+ * Amount that the customer claims.
+ * @export
+ * @interface CreateCaseParamsDisputeAmount
+ */
+export interface CreateCaseParamsDisputeAmount {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateCaseParamsDisputeAmount
+     */
+    'value': number;
+    /**
+     * 
+     * @type {Currencies}
+     * @memberof CreateCaseParamsDisputeAmount
+     */
+    'currency': Currencies;
+}
+
+
 /**
  * 
  * @export
@@ -1790,13 +1790,13 @@ export const KloutitCaseApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Case SDK call to create a new chargeback case from your system into Kloutit. API Key authentication is required in the x-api-key header.
          * @summary Create a new case into Kloutit.
-         * @param {ClientsCreateCaseRequestDto} clientsCreateCaseRequestDto 
+         * @param {CreateCaseParams} createCaseParams 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createCase: async (clientsCreateCaseRequestDto: ClientsCreateCaseRequestDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'clientsCreateCaseRequestDto' is not null or undefined
-            assertParamExists('createCase', 'clientsCreateCaseRequestDto', clientsCreateCaseRequestDto)
+        createCase: async (createCaseParams: CreateCaseParams, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createCaseParams' is not null or undefined
+            assertParamExists('createCase', 'createCaseParams', createCaseParams)
             const localVarPath = `/case`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1819,7 +1819,7 @@ export const KloutitCaseApiAxiosParamCreator = function (configuration?: Configu
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(clientsCreateCaseRequestDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createCaseParams, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -2115,12 +2115,12 @@ export const KloutitCaseApiFp = function(configuration?: Configuration) {
         /**
          * Case SDK call to create a new chargeback case from your system into Kloutit. API Key authentication is required in the x-api-key header.
          * @summary Create a new case into Kloutit.
-         * @param {ClientsCreateCaseRequestDto} clientsCreateCaseRequestDto 
+         * @param {CreateCaseParams} createCaseParams 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createCase(clientsCreateCaseRequestDto: ClientsCreateCaseRequestDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Case>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createCase(clientsCreateCaseRequestDto, options);
+        async createCase(createCaseParams: CreateCaseParams, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Case>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createCase(createCaseParams, options);
             const localVarOperationServerIndex = 0;
             const localVarOperationServerBasePath = operationServerMap['KloutitCaseApi.createCase']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -2231,12 +2231,12 @@ export const KloutitCaseApiFactory = function (configuration?: Configuration, ba
         /**
          * Case SDK call to create a new chargeback case from your system into Kloutit. API Key authentication is required in the x-api-key header.
          * @summary Create a new case into Kloutit.
-         * @param {ClientsCreateCaseRequestDto} clientsCreateCaseRequestDto 
+         * @param {CreateCaseParams} createCaseParams 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createCase(clientsCreateCaseRequestDto: ClientsCreateCaseRequestDto, options?: RawAxiosRequestConfig): AxiosPromise<Case> {
-            return localVarFp.createCase(clientsCreateCaseRequestDto, options).then((request) => request(axios, basePath));
+        createCase(createCaseParams: CreateCaseParams, options?: RawAxiosRequestConfig): AxiosPromise<Case> {
+            return localVarFp.createCase(createCaseParams, options).then((request) => request(axios, basePath));
         },
         /**
          * Downloads the case defense with the given format
@@ -2328,13 +2328,13 @@ export class KloutitCaseApi extends BaseAPI {
     /**
      * Case SDK call to create a new chargeback case from your system into Kloutit. API Key authentication is required in the x-api-key header.
      * @summary Create a new case into Kloutit.
-     * @param {ClientsCreateCaseRequestDto} clientsCreateCaseRequestDto 
+     * @param {CreateCaseParams} createCaseParams 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof KloutitCaseApi
      */
-    public createCase(clientsCreateCaseRequestDto: ClientsCreateCaseRequestDto, options?: RawAxiosRequestConfig) {
-        return KloutitCaseApiFp(this.configuration).createCase(clientsCreateCaseRequestDto, options).then((request) => request(this.axios, this.basePath));
+    public createCase(createCaseParams: CreateCaseParams, options?: RawAxiosRequestConfig) {
+        return KloutitCaseApiFp(this.configuration).createCase(createCaseParams, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
