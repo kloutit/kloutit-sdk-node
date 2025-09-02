@@ -22,4 +22,9 @@ jobs:
       - run: |
           npm install
           npm run build
-      - run: npm publish
+      - run: |
+          if [[ ${{ github.event.release.tag_name }} == *"beta"* ]]; then
+            npm publish --tag beta
+          else
+            npm publish
+          fi
