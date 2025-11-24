@@ -19,7 +19,7 @@ import type { Configuration } from './configuration';
 import type { AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 
-export const BASE_PATH = "http://localhost".replace(/\/+$/, "");
+export const BASE_PATH = "https://clients-api.kloutit.com".replace(/\/+$/, "");
 
 /**
  *
