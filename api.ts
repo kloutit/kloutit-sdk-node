@@ -165,6 +165,12 @@ export interface Case {
      */
     'serviceWasProvided'?: boolean;
     /**
+     * 
+     * @type {ServiceDuration}
+     * @memberof Case
+     */
+    'serviceDurationType'?: ServiceDuration;
+    /**
      * Check in date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof Case
@@ -363,6 +369,96 @@ export interface Case {
      */
     'productDescription'?: string;
     /**
+     * For RENTING_VEHICLE typology. Origin location for vehicle rental.
+     * @type {string}
+     * @memberof Case
+     */
+    'rentalOriginLocation'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Destination location for vehicle rental.
+     * @type {string}
+     * @memberof Case
+     */
+    'rentalDestinationLocation'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Rental pickup date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof Case
+     */
+    'rentalPickupDate'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Rental delivery date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof Case
+     */
+    'rentalDeliveryDate'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Flag that indicates if the customer is the rental owner.
+     * @type {boolean}
+     * @memberof Case
+     */
+    'privateOwnerRental'?: boolean;
+    /**
+     * For RENTING_VEHICLE typology. Name of the rental owner/company.
+     * @type {string}
+     * @memberof Case
+     */
+    'rentalOwnerName'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Currency for rental amounts.
+     * @type {string}
+     * @memberof Case
+     */
+    'rentalCurrency'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Base rental amount.
+     * @type {Amount}
+     * @memberof Case
+     */
+    'rentalAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Extra distance charge amount.
+     * @type {Amount}
+     * @memberof Case
+     */
+    'extraDistanceAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Penalty amount for rental violations.
+     * @type {Amount}
+     * @memberof Case
+     */
+    'penaltyAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Security deposit amount.
+     * @type {Amount}
+     * @memberof Case
+     */
+    'depositAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Damages amount charged to customer.
+     * @type {Amount}
+     * @memberof Case
+     */
+    'damagesAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Model of the rented vehicle.
+     * @type {string}
+     * @memberof Case
+     */
+    'productBrand'?: string;
+    /**
+     * Product identifier. If RENTING_VEHICLE typology, this is the vehicle plate number.
+     * @type {string}
+     * @memberof Case
+     */
+    'productId'?: string;
+    /**
+     * Tracking number related to the shipment of the product.
+     * @type {string}
+     * @memberof Case
+     */
+    'trackingNumber'?: string;
+    /**
      * Chargeback expedient number.
      * @type {string}
      * @memberof Case
@@ -398,12 +494,6 @@ export interface Case {
      * @memberof Case
      */
     'orderNumber'?: string;
-    /**
-     * Ticket number related to the case.
-     * @type {string}
-     * @memberof Case
-     */
-    'ticketNumber'?: string;
     /**
      * Date when the customer contacted to the merchant in UTC and ISO 8601 format.
      * @type {string}
@@ -526,6 +616,7 @@ export const CaseSectorEnum = {
     HOME: 'HOME',
     LEISURE: 'LEISURE',
     MARKETPLACE: 'MARKETPLACE',
+    PARKING: 'PARKING',
     PHONE: 'PHONE',
     SOFTWARE: 'SOFTWARE',
     SPORT: 'SPORT',
@@ -534,7 +625,8 @@ export const CaseSectorEnum = {
     TECHNOLOGY: 'TECHNOLOGY',
     TRANSPORT: 'TRANSPORT',
     TRAVEL_AIRLINE: 'TRAVEL_AIRLINE',
-    TRAVEL_HOTEL: 'TRAVEL_HOTEL'
+    TRAVEL_HOTEL: 'TRAVEL_HOTEL',
+    RENTING_VEHICLE: 'RENTING_VEHICLE'
 } as const;
 
 export type CaseSectorEnum = typeof CaseSectorEnum[keyof typeof CaseSectorEnum];
@@ -555,6 +647,7 @@ export const CaseSector = {
     HOME: 'HOME',
     LEISURE: 'LEISURE',
     MARKETPLACE: 'MARKETPLACE',
+    PARKING: 'PARKING',
     PHONE: 'PHONE',
     SOFTWARE: 'SOFTWARE',
     SPORT: 'SPORT',
@@ -563,7 +656,8 @@ export const CaseSector = {
     TECHNOLOGY: 'TECHNOLOGY',
     TRANSPORT: 'TRANSPORT',
     TRAVEL_AIRLINE: 'TRAVEL_AIRLINE',
-    TRAVEL_HOTEL: 'TRAVEL_HOTEL'
+    TRAVEL_HOTEL: 'TRAVEL_HOTEL',
+    RENTING_VEHICLE: 'RENTING_VEHICLE'
 } as const;
 
 export type CaseSector = typeof CaseSector[keyof typeof CaseSector];
@@ -733,6 +827,12 @@ export interface CreateCaseParams {
      */
     'serviceWasProvided'?: boolean;
     /**
+     * 
+     * @type {ServiceDuration}
+     * @memberof CreateCaseParams
+     */
+    'serviceDurationType'?: ServiceDuration;
+    /**
      * Check in date in UTC and ISO 8601 format.
      * @type {string}
      * @memberof CreateCaseParams
@@ -931,6 +1031,96 @@ export interface CreateCaseParams {
      */
     'productDescription'?: string;
     /**
+     * For RENTING_VEHICLE typology. Origin location for vehicle rental.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'rentalOriginLocation'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Destination location for vehicle rental.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'rentalDestinationLocation'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Rental pickup date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'rentalPickupDate'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Rental delivery date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'rentalDeliveryDate'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Flag that indicates if the customer is the rental owner.
+     * @type {boolean}
+     * @memberof CreateCaseParams
+     */
+    'privateOwnerRental'?: boolean;
+    /**
+     * For RENTING_VEHICLE typology. Name of the rental owner/company.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'rentalOwnerName'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Currency for rental amounts.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'rentalCurrency'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Base rental amount.
+     * @type {Amount}
+     * @memberof CreateCaseParams
+     */
+    'rentalAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Extra distance charge amount.
+     * @type {Amount}
+     * @memberof CreateCaseParams
+     */
+    'extraDistanceAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Penalty amount for rental violations.
+     * @type {Amount}
+     * @memberof CreateCaseParams
+     */
+    'penaltyAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Security deposit amount.
+     * @type {Amount}
+     * @memberof CreateCaseParams
+     */
+    'depositAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Damages amount charged to customer.
+     * @type {Amount}
+     * @memberof CreateCaseParams
+     */
+    'damagesAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Model of the rented vehicle.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'productBrand'?: string;
+    /**
+     * Product identifier. If RENTING_VEHICLE typology, this is the vehicle plate number.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'productId'?: string;
+    /**
+     * Tracking number related to the shipment of the product.
+     * @type {string}
+     * @memberof CreateCaseParams
+     */
+    'trackingNumber'?: string;
+    /**
      * Chargeback expedient number.
      * @type {string}
      * @memberof CreateCaseParams
@@ -966,12 +1156,6 @@ export interface CreateCaseParams {
      * @memberof CreateCaseParams
      */
     'orderNumber'?: string;
-    /**
-     * Ticket number related to the case.
-     * @type {string}
-     * @memberof CreateCaseParams
-     */
-    'ticketNumber'?: string;
     /**
      * Date when the customer contacted to the merchant in UTC and ISO 8601 format.
      * @type {string}
@@ -1166,6 +1350,36 @@ export type Currencies = typeof Currencies[keyof typeof Currencies];
 
 
 /**
+ * Category of the file
+ * @export
+ * @enum {string}
+ */
+
+export const FileCategoryEnum = {
+    RECEIPT: 'RECEIPT',
+    CUSTOMER_COMMUNICATION: 'CUSTOMER_COMMUNICATION',
+    CUSTOMER_SIGNATURE: 'CUSTOMER_SIGNATURE',
+    PAYMENT_AUTHORIZATION: 'PAYMENT_AUTHORIZATION',
+    BUYER_IDENTITY_PROOF: 'BUYER_IDENTITY_PROOF',
+    PRODUCT_EVIDENCE_BEFORE_DURING_PURCHASE: 'PRODUCT_EVIDENCE_BEFORE_DURING_PURCHASE',
+    CANCELLATION_REQUEST: 'CANCELLATION_REQUEST',
+    REFUND_PROOF: 'REFUND_PROOF',
+    TERMS_AND_CONDITIONS_ACCEPTED_PROOF: 'TERMS_AND_CONDITIONS_ACCEPTED_PROOF',
+    DUPLICATE_PAYMENT_RECORDS: 'DUPLICATE_PAYMENT_RECORDS',
+    DEVICE_DATA_AND_IP_ADDRESSES: 'DEVICE_DATA_AND_IP_ADDRESSES',
+    PRODUCT_IMAGE: 'PRODUCT_IMAGE',
+    ORDER_HISTORY_AND_TRANSACTIONS: 'ORDER_HISTORY_AND_TRANSACTIONS',
+    USAGE_PROOF: 'USAGE_PROOF',
+    SHIPPING_AND_DELIVERY_CONFIRMATION: 'SHIPPING_AND_DELIVERY_CONFIRMATION',
+    RECURRING_CONSENT_PROOF: 'RECURRING_CONSENT_PROOF',
+    CUSTOMER_UNCATEGORIZED_FILE: 'CUSTOMER_UNCATEGORIZED_FILE',
+    COMPANY_UNCATEGORIZED_FILE: 'COMPANY_UNCATEGORIZED_FILE'
+} as const;
+
+export type FileCategoryEnum = typeof FileCategoryEnum[keyof typeof FileCategoryEnum];
+
+
+/**
  * 
  * @export
  * @interface FileItem
@@ -1208,16 +1422,19 @@ export const FileItemCategoryEnum = {
     CUSTOMER_COMMUNICATION: 'CUSTOMER_COMMUNICATION',
     CUSTOMER_SIGNATURE: 'CUSTOMER_SIGNATURE',
     PAYMENT_AUTHORIZATION: 'PAYMENT_AUTHORIZATION',
-    CUSTOMER_VISUAL_EVIDENCE: 'CUSTOMER_VISUAL_EVIDENCE',
+    BUYER_IDENTITY_PROOF: 'BUYER_IDENTITY_PROOF',
+    PRODUCT_EVIDENCE_BEFORE_DURING_PURCHASE: 'PRODUCT_EVIDENCE_BEFORE_DURING_PURCHASE',
+    CANCELLATION_REQUEST: 'CANCELLATION_REQUEST',
+    REFUND_PROOF: 'REFUND_PROOF',
+    TERMS_AND_CONDITIONS_ACCEPTED_PROOF: 'TERMS_AND_CONDITIONS_ACCEPTED_PROOF',
+    DUPLICATE_PAYMENT_RECORDS: 'DUPLICATE_PAYMENT_RECORDS',
+    DEVICE_DATA_AND_IP_ADDRESSES: 'DEVICE_DATA_AND_IP_ADDRESSES',
+    PRODUCT_IMAGE: 'PRODUCT_IMAGE',
+    ORDER_HISTORY_AND_TRANSACTIONS: 'ORDER_HISTORY_AND_TRANSACTIONS',
+    USAGE_PROOF: 'USAGE_PROOF',
+    SHIPPING_AND_DELIVERY_CONFIRMATION: 'SHIPPING_AND_DELIVERY_CONFIRMATION',
+    RECURRING_CONSENT_PROOF: 'RECURRING_CONSENT_PROOF',
     CUSTOMER_UNCATEGORIZED_FILE: 'CUSTOMER_UNCATEGORIZED_FILE',
-    CANCELLATION_POLICY: 'CANCELLATION_POLICY',
-    REFUND_POLICY: 'REFUND_POLICY',
-    REFUND_EVIDENCE: 'REFUND_EVIDENCE',
-    TERMS_AND_CONDITIONS: 'TERMS_AND_CONDITIONS',
-    DUPLICATE_CHARGE_DOCUMENTATION: 'DUPLICATE_CHARGE_DOCUMENTATION',
-    SERVICE_EVIDENCE: 'SERVICE_EVIDENCE',
-    SHIPPING_EVIDENCE: 'SHIPPING_EVIDENCE',
-    COMPANY_VISUAL_EVIDENCE: 'COMPANY_VISUAL_EVIDENCE',
     COMPANY_UNCATEGORIZED_FILE: 'COMPANY_UNCATEGORIZED_FILE'
 } as const;
 
@@ -1261,6 +1478,20 @@ export interface MissingFieldsDto {
      */
     'missingFields': Array<MissingFieldDto>;
 }
+/**
+ * For PARKING typology. Duration of the service.
+ * @export
+ * @enum {string}
+ */
+
+export const ServiceDuration = {
+    TRANSACTIONAL: 'TRANSACTIONAL',
+    SUBSCRIPTION: 'SUBSCRIPTION'
+} as const;
+
+export type ServiceDuration = typeof ServiceDuration[keyof typeof ServiceDuration];
+
+
 /**
  * 
  * @export
@@ -1333,6 +1564,12 @@ export interface UpdateCaseParams {
      * @memberof UpdateCaseParams
      */
     'serviceWasProvided'?: boolean;
+    /**
+     * 
+     * @type {ServiceDuration}
+     * @memberof UpdateCaseParams
+     */
+    'serviceDurationType'?: ServiceDuration;
     /**
      * Check in date in UTC and ISO 8601 format.
      * @type {string}
@@ -1532,17 +1769,101 @@ export interface UpdateCaseParams {
      */
     'productDescription'?: string;
     /**
+     * For RENTING_VEHICLE typology. Origin location for vehicle rental.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'rentalOriginLocation'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Destination location for vehicle rental.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'rentalDestinationLocation'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Rental pickup date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'rentalPickupDate'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Rental delivery date in UTC and ISO 8601 format.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'rentalDeliveryDate'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Flag that indicates if the customer is the rental owner.
+     * @type {boolean}
+     * @memberof UpdateCaseParams
+     */
+    'privateOwnerRental'?: boolean;
+    /**
+     * For RENTING_VEHICLE typology. Name of the rental owner/company.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'rentalOwnerName'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Currency for rental amounts.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'rentalCurrency'?: string;
+    /**
+     * For RENTING_VEHICLE typology. Base rental amount.
+     * @type {Amount}
+     * @memberof UpdateCaseParams
+     */
+    'rentalAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Extra distance charge amount.
+     * @type {Amount}
+     * @memberof UpdateCaseParams
+     */
+    'extraDistanceAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Penalty amount for rental violations.
+     * @type {Amount}
+     * @memberof UpdateCaseParams
+     */
+    'penaltyAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Security deposit amount.
+     * @type {Amount}
+     * @memberof UpdateCaseParams
+     */
+    'depositAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Damages amount charged to customer.
+     * @type {Amount}
+     * @memberof UpdateCaseParams
+     */
+    'damagesAmount'?: Amount;
+    /**
+     * For RENTING_VEHICLE typology. Model of the rented vehicle.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'productBrand'?: string;
+    /**
+     * Product identifier. If RENTING_VEHICLE typology, this is the vehicle plate number.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'productId'?: string;
+    /**
+     * Tracking number related to the shipment of the product.
+     * @type {string}
+     * @memberof UpdateCaseParams
+     */
+    'trackingNumber'?: string;
+    /**
      * Order number related to the case.
      * @type {string}
      * @memberof UpdateCaseParams
      */
     'orderNumber'?: string;
-    /**
-     * Ticket number related to the case.
-     * @type {string}
-     * @memberof UpdateCaseParams
-     */
-    'ticketNumber'?: string;
     /**
      * Date when the customer contacted to the merchant in UTC and ISO 8601 format.
      * @type {string}
@@ -1789,7 +2110,7 @@ export const KloutitCaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * Case SDK call to create a new chargeback case from your system into Kloutit. API Key authentication is required in the x-api-key header.
-         * @summary Create a new case into Kloutit.
+         * @summary Create case
          * @param {CreateCaseParams} createCaseParams 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1951,12 +2272,12 @@ export const KloutitCaseApiAxiosParamCreator = function (configuration?: Configu
          * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
          * @summary Upload file
          * @param {string} expedientNumber 
-         * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;PDF&#x60;&#x60;, &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
-         * @param {UploadFileCategoryEnum} category Category of the file
+         * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are PDF, JPG, JPEG, PNG. Max. file size is 10Mb. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
+         * @param {FileCategoryEnum} category 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadFile: async (expedientNumber: string, file: File, category: UploadFileCategoryEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        uploadFile: async (expedientNumber: string, file: File, category: FileCategoryEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'expedientNumber' is not null or undefined
             assertParamExists('uploadFile', 'expedientNumber', expedientNumber)
             // verify required parameter 'file' is not null or undefined
@@ -2114,7 +2435,7 @@ export const KloutitCaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * Case SDK call to create a new chargeback case from your system into Kloutit. API Key authentication is required in the x-api-key header.
-         * @summary Create a new case into Kloutit.
+         * @summary Create case
          * @param {CreateCaseParams} createCaseParams 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2170,12 +2491,12 @@ export const KloutitCaseApiFp = function(configuration?: Configuration) {
          * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
          * @summary Upload file
          * @param {string} expedientNumber 
-         * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;PDF&#x60;&#x60;, &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
-         * @param {UploadFileCategoryEnum} category Category of the file
+         * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are PDF, JPG, JPEG, PNG. Max. file size is 10Mb. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
+         * @param {FileCategoryEnum} category 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async uploadFile(expedientNumber: string, file: File, category: UploadFileCategoryEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileItem>> {
+        async uploadFile(expedientNumber: string, file: File, category: FileCategoryEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileItem>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.uploadFile(expedientNumber, file, category, options);
             const localVarOperationServerIndex = 0;
             const localVarOperationServerBasePath = operationServerMap['KloutitCaseApi.uploadFile']?.[localVarOperationServerIndex]?.url;
@@ -2230,7 +2551,7 @@ export const KloutitCaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * Case SDK call to create a new chargeback case from your system into Kloutit. API Key authentication is required in the x-api-key header.
-         * @summary Create a new case into Kloutit.
+         * @summary Create case
          * @param {CreateCaseParams} createCaseParams 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2274,12 +2595,12 @@ export const KloutitCaseApiFactory = function (configuration?: Configuration, ba
          * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
          * @summary Upload file
          * @param {string} expedientNumber 
-         * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;PDF&#x60;&#x60;, &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
-         * @param {UploadFileCategoryEnum} category Category of the file
+         * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are PDF, JPG, JPEG, PNG. Max. file size is 10Mb. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
+         * @param {FileCategoryEnum} category 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadFile(expedientNumber: string, file: File, category: UploadFileCategoryEnum, options?: RawAxiosRequestConfig): AxiosPromise<FileItem> {
+        uploadFile(expedientNumber: string, file: File, category: FileCategoryEnum, options?: RawAxiosRequestConfig): AxiosPromise<FileItem> {
             return localVarFp.uploadFile(expedientNumber, file, category, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2327,7 +2648,7 @@ export class KloutitCaseApi extends BaseAPI {
 
     /**
      * Case SDK call to create a new chargeback case from your system into Kloutit. API Key authentication is required in the x-api-key header.
-     * @summary Create a new case into Kloutit.
+     * @summary Create case
      * @param {CreateCaseParams} createCaseParams 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2379,13 +2700,13 @@ export class KloutitCaseApi extends BaseAPI {
      * Uploads a file into an existing case. You need to send a request of type ``multipart/form-data``. Allowed formats are ``PDF``, ``JPG``, ``JPEG``, ``PNG``. Max. file size is ``10Mb``
      * @summary Upload file
      * @param {string} expedientNumber 
-     * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are &#x60;&#x60;PDF&#x60;&#x60;, &#x60;&#x60;JPG&#x60;&#x60;, &#x60;&#x60;JPEG&#x60;&#x60;, &#x60;&#x60;PNG&#x60;&#x60;. Max. file size is &#x60;&#x60;10Mb&#x60;&#x60;. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
-     * @param {UploadFileCategoryEnum} category Category of the file
+     * @param {File} file A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the multipart/form-data protocol. Allowed formats are PDF, JPG, JPEG, PNG. Max. file size is 10Mb. Ensure that the file upload adheres to [RFC 2388](https://www.ietf.org/rfc/rfc2388.txt), which defines file transfers for the multipart/form-data protocol.
+     * @param {FileCategoryEnum} category 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof KloutitCaseApi
      */
-    public uploadFile(expedientNumber: string, file: File, category: UploadFileCategoryEnum, options?: RawAxiosRequestConfig) {
+    public uploadFile(expedientNumber: string, file: File, category: FileCategoryEnum, options?: RawAxiosRequestConfig) {
         return KloutitCaseApiFp(this.configuration).uploadFile(expedientNumber, file, category, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -2423,26 +2744,5 @@ export const DownloadCaseDefenseFormatEnum = {
     DOCX: 'DOCX'
 } as const;
 export type DownloadCaseDefenseFormatEnum = typeof DownloadCaseDefenseFormatEnum[keyof typeof DownloadCaseDefenseFormatEnum];
-/**
- * @export
- */
-export const UploadFileCategoryEnum = {
-    RECEIPT: 'RECEIPT',
-    CUSTOMER_COMMUNICATION: 'CUSTOMER_COMMUNICATION',
-    CUSTOMER_SIGNATURE: 'CUSTOMER_SIGNATURE',
-    PAYMENT_AUTHORIZATION: 'PAYMENT_AUTHORIZATION',
-    CUSTOMER_VISUAL_EVIDENCE: 'CUSTOMER_VISUAL_EVIDENCE',
-    CUSTOMER_UNCATEGORIZED_FILE: 'CUSTOMER_UNCATEGORIZED_FILE',
-    CANCELLATION_POLICY: 'CANCELLATION_POLICY',
-    REFUND_POLICY: 'REFUND_POLICY',
-    REFUND_EVIDENCE: 'REFUND_EVIDENCE',
-    TERMS_AND_CONDITIONS: 'TERMS_AND_CONDITIONS',
-    DUPLICATE_CHARGE_DOCUMENTATION: 'DUPLICATE_CHARGE_DOCUMENTATION',
-    SERVICE_EVIDENCE: 'SERVICE_EVIDENCE',
-    SHIPPING_EVIDENCE: 'SHIPPING_EVIDENCE',
-    COMPANY_VISUAL_EVIDENCE: 'COMPANY_VISUAL_EVIDENCE',
-    COMPANY_UNCATEGORIZED_FILE: 'COMPANY_UNCATEGORIZED_FILE'
-} as const;
-export type UploadFileCategoryEnum = typeof UploadFileCategoryEnum[keyof typeof UploadFileCategoryEnum];
 
 
