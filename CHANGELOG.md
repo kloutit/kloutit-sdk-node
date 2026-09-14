@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Unreleased
+
+> Release as a **minor** at least (4.3.0): the `axios` minimum below is a change in the dependency range consumers install.
+
+### UPDATED
+
+- `axios` minimum raised to 1.18.0, the first version clear of every advisory published for the 1.x line to date (SSRF, prototype pollution, header injection, DoS); dependency lock refreshed (`form-data` 4.0.6)
+
 ## v4.2.0 - 10/09/2026
 
 ### ADDED
