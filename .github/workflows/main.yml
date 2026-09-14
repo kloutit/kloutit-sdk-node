@@ -1,6 +1,8 @@
-# Publish a new release on NPM via trusted publishing (GitHub Actions OIDC):
-# no npm token is stored in the repo. The trusted publisher is configured on
-# npmjs.com for this repository and this workflow file.
+# Stages a new release on NPM via trusted publishing (GitHub Actions OIDC): no
+# npm token is stored in the repo. The trusted publisher configured on npmjs.com
+# for this repository and workflow file only allows staged publishes, so the
+# version is NOT live after this job: a maintainer reviews and approves it with
+# 2FA (`npm stage approve <stage-id>` or on npmjs.com) before it is published.
 # https://www.npmjs.com/package/@kloutit/kloutit-sdk
 name: Publish release to NPM
 
@@ -21,7 +23,7 @@ jobs:
         with:
           node-version: "24"
           registry-url: "https://registry.npmjs.org"
-      # Trusted publishing needs npm >= 11.5.1. npm 11 is the line that runs on
+      # Staged publishing needs npm >= 11.15. npm 11 is the line that runs on
       # Node 24; npm@latest (12+) requires a newer Node than the runner ships.
       - run: npm install -g npm@11
       - run: |
@@ -29,7 +31,7 @@ jobs:
           npm run build
       - run: |
           if [[ "${{ github.event.release.tag_name }}" == *"beta"* ]]; then
-            npm publish --tag beta
+            npm stage publish --tag beta
           else
-            npm publish
+            npm stage publish
           fi
