@@ -1,4 +1,6 @@
-# Publish a new release on NPM
+# Publish a new release on NPM via trusted publishing (GitHub Actions OIDC):
+# no npm token is stored in the repo. The trusted publisher is configured on
+# npmjs.com for this repository and this workflow file.
 # https://www.npmjs.com/package/@kloutit/kloutit-sdk
 name: Publish release to NPM
 
@@ -10,20 +12,22 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_KLOUTIT_SDK_NODE_TOKEN }}
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           registry-url: "https://registry.npmjs.org"
-          always-auth: true
+      # Trusted publishing needs npm >= 11.5.1; Node 20 ships npm 10
+      - run: npm install -g npm@latest
       - run: |
           npm install
           npm run build
       - run: |
-          if [[ ${{ github.event.release.tag_name }} == *"beta"* ]]; then
+          if [[ "${{ github.event.release.tag_name }}" == *"beta"* ]]; then
             npm publish --tag beta
           else
             npm publish
