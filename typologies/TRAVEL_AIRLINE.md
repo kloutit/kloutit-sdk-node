@@ -39,6 +39,15 @@ const kloutitCase: UpdateCaseParams = {
   arrivalAirport: 'Barcelona',
   rate: 'Sample rate',
   checkinConfirmation: true,
+  departureCountry: 'Spain',
   destinationCountry: 'Spain',
+
+  inboundDepartureDate: new Date().toISOString(), // UTC date
+  inboundArrivalDate: new Date().toISOString(), // UTC date
+  inboundDepartureAirport: 'Madrid',
+  inboundArrivalAirport: 'Barcelona',
+  inboundRate: 'Sample return rate',
+  inboundDepartureCountry: 'Spain',
+  inboundDestinationCountry: 'Spain',
 };
 ```
