@@ -2,7 +2,7 @@
 
 Kloutit is an AI-powered B2B SaaS that enables online merchants to effectively and efficiently defend and prevent chargebacks.
 
-This SDK allows your organization to integrate with Kloutit Clients API v2.0, providing comprehensive case management capabilities including creating cases, uploading files, updating case information, and managing the complete chargeback defense workflow.
+This SDK allows your organization to integrate with Kloutit Clients API v2.2, providing comprehensive case management capabilities including creating cases, uploading files, updating case information, and managing the complete chargeback defense workflow.
 
 ## Installation
 
@@ -20,7 +20,7 @@ Once your organization is successfully registered, you will need to create new c
 
 ## Available Endpoints
 
-The Kloutit Clients API v2.0 provides the following main endpoints:
+The Kloutit Clients API v2.2 provides the following main endpoints:
 
 - **Create Case** - Create a new chargeback case
 - **Upload File** - Upload supporting documents to a case
@@ -28,8 +28,11 @@ The Kloutit Clients API v2.0 provides the following main endpoints:
 - **Update Case** - Update case information with additional data
 - **Check Case** - Validate case completeness and get missing fields
 - **Submit Completed Case** - Mark case as ready for defense generation
+- **Update Case Status** - Report the outcome (won or lost) of a case you defended outside Kloutit
 - **Verify Event** - Verify webhook events from Kloutit
 - **Download Defense** - Download the generated defense document
+- **Connection Info** - Check the organization your API key is connected to (`KloutitConnectionApi`)
+- **Webhooks** - List, subscribe and unsubscribe webhook endpoints (`KloutitWebhooksApi`)
 
 ## Usage
 
@@ -134,6 +137,25 @@ try {
 }
 ```
 
+### Resolving a Case as Won or Lost
+
+For cases you defend outside Kloutit: once the defense has been sent (case in `ALLEGED` status), report its outcome. A resolved case cannot change its status again, and a case linked to a connected payment processor is resolved by the processor itself, so it cannot be updated this way.
+
+```javascript
+import { CaseResolutionStatus } from '@kloutit/kloutit-sdk';
+
+try {
+  console.log('Resolving case');
+  const resolvedCase = await kloutitCaseApi.updateCaseStatus(
+    'CASE_EXPEDIENT_NUMBER',
+    { status: CaseResolutionStatus.WON } // or CaseResolutionStatus.LOST
+  );
+  console.log('Case resolved:', resolvedCase.status);
+} catch (error) {
+  console.error('Error resolving case:', error);
+}
+```
+
 ## Sector-Specific Requirements
 
 This example is made for TECHNOLOGY sector. You can find the needed body for each sector here:
@@ -148,6 +170,7 @@ This example is made for TECHNOLOGY sector. You can find the needed body for eac
 - [Leisure](typologies/LEISURE.md)
 - [Marketplace](typologies/MARKETPLACE.md)
 - [Phone](typologies/PHONE.md)
+- [Renting vehicle](typologies/RENTING_VEHICLE.md)
 - [Software](typologies/SOFTWARE.md)
 - [Sport](typologies/SPORT.md)
 - [Subscription](typologies/SUBSCRIPTION.md)
@@ -209,7 +232,8 @@ import {
   KloutitCaseApi,
   CaseSectorEnum,
   Currencies,
-  FileCategoryEnum
+  FileCategoryEnum,
+  CaseResolutionStatus
 } from '@kloutit/kloutit-sdk';
 
 const kloutitCaseApi = new KloutitCaseApi({ apiKey: 'YOUR_API_KEY' });
@@ -250,6 +274,11 @@ async function manageChargebackCase() {
     
     // 6. Download defense when ready
     const defense = await kloutitCaseApi.downloadCaseDefense('PDF', 'CASE_001');
+
+    // 7. Once the defense is sent and the outcome is known, report it
+    await kloutitCaseApi.updateCaseStatus('CASE_001', {
+      status: CaseResolutionStatus.WON,
+    });
     
   } catch (error) {
     console.error('Workflow error:', error);
@@ -267,6 +296,7 @@ The API returns standard HTTP status codes:
 - **206** - Partial content (case has non-required fields missing)
 - **400** - Bad request (validation errors)
 - **401** - Unauthorized (invalid API key)
+- **403** - Forbidden (e.g. the case status is owned by a connected payment processor)
 - **404** - Not found (case doesn't exist)
 - **406** - Not acceptable (case has required fields missing)
 
