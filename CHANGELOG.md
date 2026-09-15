@@ -9,6 +9,7 @@
 ### UPDATED
 
 - Case models: `paymentProcessor` is writable on creation and lists every processor the API accepts
+- `axios` minimum raised to 1.18.0, the first version clear of every advisory published for the 1.x line to date (SSRF, prototype pollution, header injection, DoS); dependency lock refreshed (`form-data` 4.0.6)
 
 ## v4.2.0 - 10/09/2026
 
