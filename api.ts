@@ -616,10 +616,22 @@ export const CasePaymentProcessorEnum = {
     KLARNA: 'KLARNA',
     DLOCAL: 'DLOCAL',
     MERCADO_PAGO: 'MERCADO_PAGO',
+    MEO_WALLET: 'MEO_WALLET',
     WORLDPAY: 'WORLDPAY',
     BRAINTREE: 'BRAINTREE',
     GETNET: 'GETNET',
-    CONEKTA: 'CONEKTA'
+    CONEKTA: 'CONEKTA',
+    AMEX: 'AMEX',
+    SQUARE: 'SQUARE',
+    ALIPAY: 'ALIPAY',
+    WECHAT_PAY: 'WECHAT_PAY',
+    APPLE_PAY: 'APPLE_PAY',
+    GOOGLE_PAY: 'GOOGLE_PAY',
+    AMAZON_PAYMENTS: 'AMAZON_PAYMENTS',
+    RAZORPAY: 'RAZORPAY',
+    BAMBORA: 'BAMBORA',
+    BARCLAYS: 'BARCLAYS',
+    REVOLUT: 'REVOLUT'
 } as const;
 
 export type CasePaymentProcessorEnum = typeof CasePaymentProcessorEnum[keyof typeof CasePaymentProcessorEnum];
@@ -650,14 +662,16 @@ export const CaseSectorEnum = {
 export type CaseSectorEnum = typeof CaseSectorEnum[keyof typeof CaseSectorEnum];
 
 /**
- * Outcome of the case: WON or LOST. Only a case whose defense has already been sent (status ALLEGED) can be resolved, and a resolved case cannot change its status again.
+ * New status of the case. ``ALLEGED``: you have sent the generated defense to the payment processor yourself (only from ``GENERATED``). ``ACCEPTED``: you accept the chargeback and stop defending the case (from ``PENDING``, ``GENERATED``, ``ALLEGED``, ``REOPENED``, ``PREARBITRATION`` or ``ARBITRATION``). ``WON`` / ``LOST``: outcome of the case once its defense has been sent (only from ``ALLEGED``). A resolved case cannot change its status again.
  * @export
  * @enum {string}
  */
 
 export const CaseResolutionStatus = {
+    ALLEGED: 'ALLEGED',
     WON: 'WON',
-    LOST: 'LOST'
+    LOST: 'LOST',
+    ACCEPTED: 'ACCEPTED'
 } as const;
 
 export type CaseResolutionStatus = typeof CaseResolutionStatus[keyof typeof CaseResolutionStatus];
@@ -1493,10 +1507,22 @@ export const CreateCaseParamsPaymentProcessorEnum = {
     KLARNA: 'KLARNA',
     DLOCAL: 'DLOCAL',
     MERCADO_PAGO: 'MERCADO_PAGO',
+    MEO_WALLET: 'MEO_WALLET',
     WORLDPAY: 'WORLDPAY',
     BRAINTREE: 'BRAINTREE',
     GETNET: 'GETNET',
-    CONEKTA: 'CONEKTA'
+    CONEKTA: 'CONEKTA',
+    AMEX: 'AMEX',
+    SQUARE: 'SQUARE',
+    ALIPAY: 'ALIPAY',
+    WECHAT_PAY: 'WECHAT_PAY',
+    APPLE_PAY: 'APPLE_PAY',
+    GOOGLE_PAY: 'GOOGLE_PAY',
+    AMAZON_PAYMENTS: 'AMAZON_PAYMENTS',
+    RAZORPAY: 'RAZORPAY',
+    BAMBORA: 'BAMBORA',
+    BARCLAYS: 'BARCLAYS',
+    REVOLUT: 'REVOLUT'
 } as const;
 
 export type CreateCaseParamsPaymentProcessorEnum = typeof CreateCaseParamsPaymentProcessorEnum[keyof typeof CreateCaseParamsPaymentProcessorEnum];
@@ -2292,7 +2318,7 @@ export interface UpdateCaseParams {
  */
 export interface UpdateCaseStatusParams {
     /**
-     * Outcome of the case: WON or LOST. Only a case whose defense has already been sent (status ALLEGED) can be resolved, and a resolved case cannot change its status again.
+     * New status of the case. ``ALLEGED``: you have sent the generated defense to the payment processor yourself (only from ``GENERATED``). ``ACCEPTED``: you accept the chargeback and stop defending the case (from ``PENDING``, ``GENERATED``, ``ALLEGED``, ``REOPENED``, ``PREARBITRATION`` or ``ARBITRATION``). ``WON`` / ``LOST``: outcome of the case once its defense has been sent (only from ``ALLEGED``). A resolved case cannot change its status again.
      * @type {CaseResolutionStatus}
      * @memberof UpdateCaseStatusParams
      */
@@ -2673,7 +2699,7 @@ export const KloutitCaseApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Resolves an existing case as ``WON`` or ``LOST``, for cases you defend outside Kloutit. The case must be in ``ALLEGED`` status (defense already sent). A case already resolved cannot change its status again, and a case linked to a connected payment processor is resolved by the processor itself, so it cannot be updated through this endpoint.
+         * Changes the status of an existing case, for cases you manage outside Kloutit. Set ``ALLEGED`` once you have sent the generated defense to the payment processor yourself: the case must be in ``GENERATED`` status, whichever stage the defense belongs to (initial defense, reopening, prearbitration or arbitration). Set ``ACCEPTED`` to accept the chargeback and stop defending the case, whether or not a defense has been sent (``PENDING``, ``GENERATED``, ``ALLEGED``, ``REOPENED``, ``PREARBITRATION`` or ``ARBITRATION``). Set ``WON`` or ``LOST`` to register the outcome once the defense has been sent (``ALLEGED``). A case already resolved cannot change its status again, and a case linked to a connected payment processor is managed by the processor itself, so it cannot be updated through this endpoint.
          * @summary Update case status
          * @param {string} expedientNumber Case expedient number. This value must exist in Kloutit.
          * @param {UpdateCaseStatusParams} updateCaseStatusParams 
@@ -2935,7 +2961,7 @@ export const KloutitCaseApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Resolves an existing case as ``WON`` or ``LOST``, for cases you defend outside Kloutit. The case must be in ``ALLEGED`` status (defense already sent). A case already resolved cannot change its status again, and a case linked to a connected payment processor is resolved by the processor itself, so it cannot be updated through this endpoint.
+         * Changes the status of an existing case, for cases you manage outside Kloutit. Set ``ALLEGED`` once you have sent the generated defense to the payment processor yourself: the case must be in ``GENERATED`` status, whichever stage the defense belongs to (initial defense, reopening, prearbitration or arbitration). Set ``ACCEPTED`` to accept the chargeback and stop defending the case, whether or not a defense has been sent (``PENDING``, ``GENERATED``, ``ALLEGED``, ``REOPENED``, ``PREARBITRATION`` or ``ARBITRATION``). Set ``WON`` or ``LOST`` to register the outcome once the defense has been sent (``ALLEGED``). A case already resolved cannot change its status again, and a case linked to a connected payment processor is managed by the processor itself, so it cannot be updated through this endpoint.
          * @summary Update case status
          * @param {string} expedientNumber Case expedient number. This value must exist in Kloutit.
          * @param {UpdateCaseStatusParams} updateCaseStatusParams 
@@ -3053,7 +3079,7 @@ export const KloutitCaseApiFactory = function (configuration?: Configuration, ba
             return localVarFp.updateCase(expedientNumber, updateCaseParams, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resolves an existing case as ``WON`` or ``LOST``, for cases you defend outside Kloutit. The case must be in ``ALLEGED`` status (defense already sent). A case already resolved cannot change its status again, and a case linked to a connected payment processor is resolved by the processor itself, so it cannot be updated through this endpoint.
+         * Changes the status of an existing case, for cases you manage outside Kloutit. Set ``ALLEGED`` once you have sent the generated defense to the payment processor yourself: the case must be in ``GENERATED`` status, whichever stage the defense belongs to (initial defense, reopening, prearbitration or arbitration). Set ``ACCEPTED`` to accept the chargeback and stop defending the case, whether or not a defense has been sent (``PENDING``, ``GENERATED``, ``ALLEGED``, ``REOPENED``, ``PREARBITRATION`` or ``ARBITRATION``). Set ``WON`` or ``LOST`` to register the outcome once the defense has been sent (``ALLEGED``). A case already resolved cannot change its status again, and a case linked to a connected payment processor is managed by the processor itself, so it cannot be updated through this endpoint.
          * @summary Update case status
          * @param {string} expedientNumber Case expedient number. This value must exist in Kloutit.
          * @param {UpdateCaseStatusParams} updateCaseStatusParams 
@@ -3169,7 +3195,7 @@ export class KloutitCaseApi extends BaseAPI {
     }
 
     /**
-     * Resolves an existing case as ``WON`` or ``LOST``, for cases you defend outside Kloutit. The case must be in ``ALLEGED`` status (defense already sent). A case already resolved cannot change its status again, and a case linked to a connected payment processor is resolved by the processor itself, so it cannot be updated through this endpoint.
+     * Changes the status of an existing case, for cases you manage outside Kloutit. Set ``ALLEGED`` once you have sent the generated defense to the payment processor yourself: the case must be in ``GENERATED`` status, whichever stage the defense belongs to (initial defense, reopening, prearbitration or arbitration). Set ``ACCEPTED`` to accept the chargeback and stop defending the case, whether or not a defense has been sent (``PENDING``, ``GENERATED``, ``ALLEGED``, ``REOPENED``, ``PREARBITRATION`` or ``ARBITRATION``). Set ``WON`` or ``LOST`` to register the outcome once the defense has been sent (``ALLEGED``). A case already resolved cannot change its status again, and a case linked to a connected payment processor is managed by the processor itself, so it cannot be updated through this endpoint.
      * @summary Update case status
      * @param {string} expedientNumber Case expedient number. This value must exist in Kloutit.
      * @param {UpdateCaseStatusParams} updateCaseStatusParams 

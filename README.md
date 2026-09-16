@@ -28,7 +28,7 @@ The Kloutit Clients API v2.2 provides the following main endpoints:
 - **Update Case** - Update case information with additional data
 - **Check Case** - Validate case completeness and get missing fields
 - **Submit Completed Case** - Mark case as ready for defense generation
-- **Update Case Status** - Report the outcome (won or lost) of a case you defended outside Kloutit
+- **Update Case Status** - Mark a case as alleged or accepted, or report its outcome (won or lost), for cases you manage outside Kloutit
 - **Verify Event** - Verify webhook events from Kloutit
 - **Download Defense** - Download the generated defense document
 - **Connection Info** - Check the organization your API key is connected to (`KloutitConnectionApi`)
@@ -137,22 +137,33 @@ try {
 }
 ```
 
-### Resolving a Case as Won or Lost
+### Updating the Case Status
 
-For cases you defend outside Kloutit: once the defense has been sent (case in `ALLEGED` status), report its outcome. A resolved case cannot change its status again, and a case linked to a connected payment processor is resolved by the processor itself, so it cannot be updated this way.
+For cases you manage outside Kloutit, `updateCaseStatus` moves the case along its lifecycle:
+
+- `ALLEGED`: you have sent the generated defense to the payment processor yourself. Only from `GENERATED`, whichever stage the defense belongs to (initial defense, reopening, prearbitration or arbitration).
+- `ACCEPTED`: you accept the chargeback and stop defending the case, whether or not a defense has been sent (`PENDING`, `GENERATED`, `ALLEGED`, `REOPENED`, `PREARBITRATION` or `ARBITRATION`).
+- `WON` / `LOST`: the outcome of the case once its defense has been sent (`ALLEGED`).
+
+A resolved case cannot change its status again, and a case linked to a connected payment processor is managed by the processor itself, so it cannot be updated this way.
 
 ```javascript
 import { CaseResolutionStatus } from '@kloutit/kloutit-sdk';
 
 try {
-  console.log('Resolving case');
+  // The defense was downloaded and sent to the processor by you
+  await kloutitCaseApi.updateCaseStatus('CASE_EXPEDIENT_NUMBER', {
+    status: CaseResolutionStatus.ALLEGED,
+  });
+
+  // Later, once the outcome is known
   const resolvedCase = await kloutitCaseApi.updateCaseStatus(
     'CASE_EXPEDIENT_NUMBER',
     { status: CaseResolutionStatus.WON } // or CaseResolutionStatus.LOST
   );
   console.log('Case resolved:', resolvedCase.status);
 } catch (error) {
-  console.error('Error resolving case:', error);
+  console.error('Error updating case status:', error);
 }
 ```
 
@@ -275,7 +286,12 @@ async function manageChargebackCase() {
     // 6. Download defense when ready
     const defense = await kloutitCaseApi.downloadCaseDefense('PDF', 'CASE_001');
 
-    // 7. Once the defense is sent and the outcome is known, report it
+    // 7. Mark the defense as sent once you have filed it with the processor
+    await kloutitCaseApi.updateCaseStatus('CASE_001', {
+      status: CaseResolutionStatus.ALLEGED,
+    });
+
+    // 8. Once the outcome is known, report it (or ACCEPTED to stop defending)
     await kloutitCaseApi.updateCaseStatus('CASE_001', {
       status: CaseResolutionStatus.WON,
     });
